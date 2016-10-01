@@ -1,0 +1,37 @@
+html, body, iframe
+{
+	color: white;
+	margin: 0;
+}
+
+.tile .tag
+{
+	padding: 5px;
+}
+
+.tile .tags
+{
+	border-left: 1px dashed white;
+	overflow: hidden;
+}
+
+.fullscreen .messages
+{
+	overflow: auto;
+	border-top: 1px solid white;
+}
+
+.fullscreen .message
+{
+	padding: 10px;
+}
+
+.fullscreen md-input-container
+{
+	margin: 0px !important;
+}
+
+.fullscreen .md-errors-spacer
+{
+	display: none;
+}
