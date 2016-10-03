@@ -7,43 +7,43 @@ pw.config(function($mdThemingProvider) {
 
 pw.run(['$rootScope', function($rootScope){
 
-	$rootScope.fullscreen = false;
-	$rootScope.initialized = false;
+  $rootScope.fullscreen = false;
+  $rootScope.initialized = false;
 
-	llb_app.addListener('window_state', function(data){
-		if(data.fullscreen)
-		{
-			$rootScope.$apply(function(){
-				$rootScope.fullscreen = true;
-			})
-		}
-		else
-		{
-			$rootScope.$apply(function(){
-				$rootScope.fullscreen = false
-			})
-		}
-	})
+  llb_app.addListener('window_state', function(data){
+    if(data.fullscreen)
+    {
+      $rootScope.$apply(function(){
+        $rootScope.fullscreen = true;
+      })
+    }
+    else
+    {
+      $rootScope.$apply(function(){
+        $rootScope.fullscreen = false
+      })
+    }
+  })
 
-	llb_app.request('window_dimensions')
-	llb_app.addListener('window_dimensions', function(data){
-		$rootScope.$apply(function(){
+  llb_app.request('window_dimensions')
+  llb_app.addListener('window_dimensions', function(data){
+    $rootScope.$apply(function(){
       $rootScope.window_dimensions = data
       $rootScope.fullscreen_app_dimensions = {
         "width": data.fullscreen_width + "px",
         "height": data.fullscreen_height - 64 + "px"
       };
 
-			$rootScope.initialized = true;
-		});
-	})
+      $rootScope.initialized = true;
+    });
+  })
 
   llb_app.request('location')
-	llb_app.addListener('location', function(data){
-		$rootScope.$apply(function(){
-	     $rootScope.latestLocation = data;
-		})
-	})
+  llb_app.addListener('location', function(data){
+    $rootScope.$apply(function(){
+       $rootScope.latestLocation = data;
+    })
+  })
 }])
 
 pw.controller('MainController', function($scope, $http){
