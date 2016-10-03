@@ -18,7 +18,7 @@
 
 </head>
 <body style='background-color: #0277bd; overflow: hidden'>
-	<div layout='column' ng-controller='MainController as vm' ng-if='$root.initialized' >
+	<div layout='column' ng-controller='MainController' ng-if='$root.initialized' >
 		<div flex layout='row' class='md-padding' layout-fill ng-if='!$root.fullscreen'>
 			<div flex layout='column' layout-align='center center'>
 				<span class='md-display-1' style='text-align: center;'>City Information</span>
@@ -26,7 +26,7 @@
 		</div>
 
 		<div flex layout='row' layout-fill ng-show='$root.fullscreen'>
-			<div id='gmap'></div>
+			<div id='gmap' style="width: {{window_dimensions.fullscreen_width}}px; height: {{window_dimensions.fullscreen_height - 64}}px;"></div>
 		</div>
 	</div>
 </body>
