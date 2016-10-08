@@ -1,7 +1,7 @@
-angular.module('cityInfo.services', []);
-angular.module('cityInfo.controllers', ['cityInfo.services']);
+angular.module('cityInfo.factories', []);
+angular.module('cityInfo.controllers', ['cityInfo.factories']);
 
-var pw = angular.module('cityInfo', ['ngMaterial', 'cityInfo.services', 'cityInfo.controllers'])
+var pw = angular.module('cityInfo', ['ngMaterial', 'cityInfo.factories', 'cityInfo.controllers'])
 pw.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
     .dark();
