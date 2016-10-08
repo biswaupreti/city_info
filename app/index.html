@@ -10,6 +10,12 @@
   <script type="text/javascript" src="js/llb.js"></script>
   <script type="text/javascript" src="js/app.js"></script>
 
+  <!-- services -->
+  <script type="text/javascript" src="js/services/gmapService.js"></script>
+
+  <!-- controllers -->
+  <script type="text/javascript" src="js/controllers/mapController.js"></script>
+
   <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
   <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
@@ -17,8 +23,8 @@
   <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDqNsDFc1Jz7XgdsoKWYnGyNBpZRL6PRh4&libraries=places" type="text/javascript"></script>
 
 </head>
-<body style='background-color: #0277bd; overflow: hidden'>
-  <div layout='column' ng-controller='MainController' ng-if='$root.initialized' >
+<body style='background-color: #0277bd; overflow: hidden;'>
+  <div layout='column' ng-controller='MapController' ng-if='$root.initialized' >
     <div flex layout='row' class='md-padding' layout-fill ng-if='!$root.fullscreen'>
       <div flex layout='column' layout-align='center center'>
         <span class='md-display-1' style='text-align: center;'>City Information</span>
