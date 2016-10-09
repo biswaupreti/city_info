@@ -33,6 +33,8 @@ pw.run(['$rootScope', function($rootScope){
       $rootScope.window_dimensions = data
       $rootScope.fullscreen_app_dimensions = {
         "width": data.fullscreen_width + "px",
+        //TODO Find a way around this magic number,
+        //it's not even accurate on all screen sizes
         "height": data.fullscreen_height - 64 + "px"
       };
 

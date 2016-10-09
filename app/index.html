@@ -25,14 +25,14 @@
 
 </head>
 <body style='background-color: #0277bd; overflow: hidden;'>
-  <div layout='column' ng-controller='MapController' ng-if='$root.initialized' >
+  <div layout='column' ng-if='$root.initialized' >
     <div flex layout='row' class='md-padding' layout-fill ng-if='!$root.fullscreen'>
       <div flex layout='column' layout-align='center center'>
         <span class='md-display-1' style='text-align: center;'>City Information</span>
       </div>
     </div>
 
-    <div flex layout='row' layout-fill ng-show='$root.fullscreen'>
+    <div flex layout='row' layout-fill ng-controller='MapController' ng-show='$root.fullscreen'>
       <div id='gmap' ng-style='fullscreen_app_dimensions'></div>
     </div>
   </div>
