@@ -1,32 +1,45 @@
-angular.module('cityInfo.factories').factory('Map', function(){
-  var googleMap = function(mapDiv, center) {
-    var mapOptions = {
-      zoom: 14,
-      center: center,
-      mapTypeId: 'roadmap'
-    };
-    var map = new google.maps.Map(mapDiv, mapOptions);
+angular.module('cityInfo.factories').factory('Map', ['LoadGoogleMapsApi', '$q', function(LoadGoogleMapsApi, $q, mapDiv, center){
+  return {
+    createMap: function(mapDiv, center) {
+      return LoadGoogleMapsApi.then(
+        function(){
+          if (!(mapDiv instanceof Element)) {
+            return $q.reject("MapDiv was not Element");
+          }
 
-    this.map = map;
-    this.options = mapOptions;
+          var mapOptions = {
+            zoom: 14,
+            center: center,
+            mapTypeId: 'roadmap'
+          };
 
-    this.setCenter = function(center) {
-      this.map.setCenter(center);
-    };
+          var mapObj = {};
+          mapObj.map = new google.maps.Map(mapDiv, mapOptions);
+          mapObj.options = mapOptions;
 
-    this.showMarker = function(location) {
-      var marker = new google.maps.Marker({
-        map: this.map,
-        position: location
-      });
+          mapObj.setCenter = function(center) {
+            this.map.setCenter(center);
+          };
 
-      return marker;
-    };
+          mapObj.showMarker = function(location) {
+            var marker = new google.maps.Marker({
+              map: this.map,
+              position: location
+            });
 
-    this.removeMarker = function(marker) {
-      marker.setMap(null);
-    };
+            return marker;
+          };
+
+          mapObj.removeMarker = function(marker) {
+            marker.setMap(null);
+          };
+
+          return (mapObj);
+        },
+        function(rejectReason){
+          return $q.reject(rejectReason);
+        }
+      );
+    }
   };
-
-  return (googleMap);
-});
+}]);

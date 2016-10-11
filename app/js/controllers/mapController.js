@@ -11,24 +11,34 @@ angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'M
       };
 
       var mapDiv = document.getElementById('gmap');
-      $scope.map = new Map(mapDiv, myLatLng);
-      $scope.mapInitialized = true;
+      Map.createMap(mapDiv, myLatLng).then(
+        function(map){
+          $scope.map = map;
+          $scope.mapInitialized = true;
 
-      $scope.poiApi = new PoiApi($scope.map);
-      $scope.poiApi.searchWithDetails({
-        location: myLatLng,
-        radius: 500,
-        types: ['cafe']
-      },
-        function(results, status) {
-          if (status === google.maps.places.PlacesServiceStatus.OK) {
-            for (var i = 0; i < results.length; i++) {
-              place = results[i];
-              var placeLoc = place.geometry.location;
-              $scope.map.showMarker(placeLoc);
-            }
-          }
-        }
+          PoiApi.createPlaces($scope.map).then(
+            function(placesApi) {
+              $scope.poiApi = placesApi;
+              $scope.poiApi.searchWithDetails({
+                location: myLatLng,
+                radius: 500,
+                types: ['cafe']
+              },
+                function(results, status) {
+                  if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    for (var i = 0; i < results.length; i++) {
+                      place = results[i];
+                      var placeLoc = place.geometry.location;
+                      $scope.map.showMarker(placeLoc);
+                    }
+                  }
+                }
+              );
+            },
+            function(rejectReason) {}
+          );
+        },
+        function(rejectReason){}
       );
     }
   });
