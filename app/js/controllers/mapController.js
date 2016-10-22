@@ -67,7 +67,7 @@ angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'M
   };
 
   $scope.showFavorites = function() {
-    alert("hei");
+    console.log('Favorites button pressed');
   };
 
   var userPosMarker = null;
