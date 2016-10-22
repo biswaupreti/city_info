@@ -46,11 +46,4 @@ pw.run(['$rootScope', function($rootScope){
       $rootScope.initialized = true;
     });
   });
-
-  llb_app.request('location');
-  llb_app.addListener('location', function(data){
-    $rootScope.$apply(function(){
-       $rootScope.latestLocation = data;
-    })
-  });
 }]);

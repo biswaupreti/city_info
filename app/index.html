@@ -26,15 +26,38 @@
 
 </head>
 <body style='background-color: #0277bd; overflow: hidden;'>
-  <div layout='column' ng-if='$root.initialized' >
+  <div ng-if='$root.initialized' >
     <div flex layout='row' class='md-padding' layout-fill ng-if='!$root.fullscreen'>
       <div flex layout='column' layout-align='center center'>
         <span class='md-display-1' style='text-align: center;'>City Information</span>
       </div>
     </div>
 
-    <div flex layout='row' layout-fill ng-controller='MapController' ng-show='$root.fullscreen'>
+    <div ng-controller='MapController as mc' ng-show='$root.fullscreen'>
+
       <div id='gmap' ng-style='fullscreen_app_dimensions'></div>
+
+      <md-autocomplete
+        id='poi-searchbar'
+        class='searchbar'
+        md-input-name='poi-search'
+        md-selected-item='selectedItem'
+        md-search-text='searchText'
+        md-items='item in poiAutocompleteService.getQueryPredictions(searchText)'
+        md-delay='200'
+        md-min-length='2'
+        md-item-text='item.description'>
+        <md-item-template>
+          {{item.description}}
+        </md-item-template>
+      </md-autocomplete>
+      <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-click='centerToUser()'>
+        <md-icon md-svg-src='img/icons/ic_my_location_black_24px.svg'></md-icon>
+      </md-button>
+
+      <md-button id='favorites-btn' class='md-fab md-primary md-hue-2' aria-label='Favorites' ng-click='showFavorites()'>
+        <md-icon md-svg-src='img/icons/ic_place_black_24px.svg'></md-icon>
+      </md-button>
     </div>
   </div>
 </body>
