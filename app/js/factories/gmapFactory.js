@@ -38,13 +38,13 @@ angular.module('cityInfo.factories').factory('Map', ['LoadGoogleMapsApi', '$q', 
             return this.map.getBounds();
           }
 
-          mapObj.createMarker = function(location, markerImg) {
+          mapObj.createMarker = function(location, icon) {
             var marker = new google.maps.Marker({
               position: location
             });
 
-            if (markerImg != null) {
-              marker.setIcon(markerImg);
+            if (icon != null) {
+              marker.setIcon(icon);
             }
 
             return marker;

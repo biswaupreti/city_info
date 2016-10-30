@@ -74,14 +74,14 @@ angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'M
   llb_app.request('location');
   llb_app.addListener('location', function(data){
     var latLng = {
-      lat: data.latitude,
-      lng: data.longitude
+      lat: data.data.latitude,
+      lng: data.data.longitude
     };
 
     $scope.latestLocation = latLng;
     if ($scope.map !== null) {
       if (userPosMarker === null) {
-        userPosMarker = $scope.map.createMarker(latLng, 'img/userPositionMarker.png');
+        userPosMarker = $scope.map.createMarker(latLng,'img/userpositionmarker.svg');
         userPosMarker.setClickable(false);
         $scope.map.showMarker(userPosMarker);
       }
