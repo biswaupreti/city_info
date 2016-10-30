@@ -35,3 +35,29 @@ html, body, iframe
 {
 	display: none;
 }
+
+#poi-searchbar {
+  position: absolute;
+  left: 0.6em;
+  right: 0.6em;
+  top: 0.6em;
+}
+
+#poi-searchbar input {
+  background: url(../img/icons/ic_search_black_24px.svg);
+  background-repeat: no-repeat;
+  background-position: 5px 9px;
+  padding: 0px 35px;
+}
+
+#user-center-btn {
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+}
+
+#favorites-btn {
+  position: absolute;
+  bottom: 85px;
+  right: 0;
+}

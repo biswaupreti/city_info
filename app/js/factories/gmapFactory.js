@@ -10,7 +10,8 @@ angular.module('cityInfo.factories').factory('Map', ['LoadGoogleMapsApi', '$q', 
           var mapOptions = {
             zoom: 14,
             center: center,
-            mapTypeId: 'roadmap'
+            mapTypeId: 'roadmap',
+            disableDefaultUI: true
           };
 
           var mapObj = {};
@@ -21,13 +22,36 @@ angular.module('cityInfo.factories').factory('Map', ['LoadGoogleMapsApi', '$q', 
             this.map.setCenter(center);
           };
 
-          mapObj.showMarker = function(location) {
+          mapObj.panTo = function(center) {
+            this.map.panTo(center);
+          };
+
+          mapObj.setZoom = function(zoom) {
+            this.map.setZoom(zoom);
+          };
+
+          mapObj.fitBounds = function(bounds) {
+            this.map.fitBounds(bounds);
+          }
+
+          mapObj.getBounds = function() {
+            return this.map.getBounds();
+          }
+
+          mapObj.createMarker = function(location, markerImg) {
             var marker = new google.maps.Marker({
-              map: this.map,
               position: location
             });
 
+            if (markerImg != null) {
+              marker.setIcon(markerImg);
+            }
+
             return marker;
+          }
+
+          mapObj.showMarker = function(marker) {
+            marker.setMap(this.map);
           };
 
           mapObj.removeMarker = function(marker) {
