@@ -3,6 +3,13 @@ angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'M
   $scope.map = null;
   $scope.poiApi = null;
 
+  $scope.latestLocation = null;
+
+  $scope.poiAutocompleteService = {
+    getQueryPredictions: function(){ return []; },
+    getPlacePredictions: function(){ return []; }
+  };
+
   $scope.$watch('fullscreen', function(newVal, oldVal) {
     if (newVal == true && !$scope.mapInitialized) {
       var myLatLng = {
@@ -29,7 +36,8 @@ angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'M
                     for (var i = 0; i < results.length; i++) {
                       place = results[i];
                       var placeLoc = place.geometry.location;
-                      $scope.map.showMarker(placeLoc);
+                      var marker = $scope.map.createMarker(placeLoc);
+                      $scope.map.showMarker(marker);
                     }
                   }
                 }
@@ -37,9 +45,48 @@ angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'M
             },
             function(rejectReason) {}
           );
+
+          PoiApi.createAutoCompleteService().then(
+            function(autoCompleteService) {
+              $scope.poiAutocompleteService = autoCompleteService;
+              $scope.poiAutocompleteService.bindToMapArea(map);
+            },
+            function(rejectReason) {}
+          );
         },
         function(rejectReason){}
       );
+    }
+  });
+
+  $scope.centerToUser = function() {
+    if ($scope.map != null && $scope.latestLocation != null) {
+      $scope.map.setZoom(15);
+      $scope.map.panTo($scope.latestLocation);
+    }
+  };
+
+  $scope.showFavorites = function() {
+    console.log('Favorites button pressed');
+  };
+
+  var userPosMarker = null;
+  llb_app.request('location');
+  llb_app.addListener('location', function(data){
+    var latLng = {
+      lat: data.latitude,
+      lng: data.longitude
+    };
+
+    $scope.latestLocation = latLng;
+    if ($scope.map !== null) {
+      if (userPosMarker === null) {
+        userPosMarker = $scope.map.createMarker(latLng, 'img/userPositionMarker.png');
+        userPosMarker.setClickable(false);
+        $scope.map.showMarker(userPosMarker);
+      }
+
+      userPosMarker.setPosition(latLng);
     }
   });
 }]);
