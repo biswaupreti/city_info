@@ -87,7 +87,7 @@ angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'M
     $scope.latestLocation = latLng;
     if ($scope.map !== null) {
       if (userPosMarker === null) {
-        userPosMarker = $scope.map.createMarker(latLng,'img/userpositionmarker.svg');
+        userPosMarker = $scope.map.createMarker(latLng, 'img/userpositionmarker.svg');
         userPosMarker.setClickable(false);
         $scope.map.showMarker(userPosMarker);
       }
