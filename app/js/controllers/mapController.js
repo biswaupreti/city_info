@@ -73,15 +73,21 @@ angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'M
   var userPosMarker = null;
   llb_app.request('location');
   llb_app.addListener('location', function(data){
-    var latLng = {
-      lat: data.latitude,
-      lng: data.longitude
-    };
+    var latLng = {};
+    //Quick fix so that listener works with both custom events and actual events
+    if (data.data) {
+      latLng.lat = data.data.latitude;
+      latLng.lng = data.data.longitude;
+    }
+    else {
+      latLng.lat = data.latitude;
+      latLng.lng = data.longitude;
+    }
 
     $scope.latestLocation = latLng;
     if ($scope.map !== null) {
       if (userPosMarker === null) {
-        userPosMarker = $scope.map.createMarker(latLng, 'img/userPositionMarker.png');
+        userPosMarker = $scope.map.createMarker(latLng, 'img/userpositionmarker.svg');
         userPosMarker.setClickable(false);
         $scope.map.showMarker(userPosMarker);
       }
