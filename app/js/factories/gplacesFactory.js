@@ -7,39 +7,44 @@
       createPlaces: function(attributionContainer) {
         return LoadGoogleMapsApi.then(
           function() {
-            var googlePlaces = {};
-
+            var api = null;
             //Check that attributionContainer is valid (= Google Maps object or HTML div)
             if (attributionContainer == null) {
               return $q.reject("attributionContainer is null");
             } else if (attributionContainer instanceof google.maps.Map ||
                 attributionContainer instanceof HTMLDivElement) {
-              googlePlaces.api = new google.maps.places.PlacesService(attributionContainer);
+              api = new google.maps.places.PlacesService(attributionContainer);
             } else if (attributionContainer.map !== undefined && attributionContainer.map instanceof google.maps.Map) {
-              googlePlaces.api = new google.maps.places.PlacesService(attributionContainer.map);
+              api = new google.maps.places.PlacesService(attributionContainer.map);
             } else {
                 return $q.reject("attributionContainer is null");
             }
 
-            //API functions
-            googlePlaces.searchWithDetails = function(queryObj, callback) {
-              this.api.nearbySearch(queryObj, callback);
+            var googlePlaces = {
+              searchWithDetails: searchWithDetails,
+              search: search,
+              getDetails: getDetails,
+
+            };
+            return googlePlaces;
+
+            function searchWithDetails(queryObj, callback) {
+              api.nearbySearch(queryObj, callback);
             };
 
-            googlePlaces.search = function(queryObj, callback) {
-              this.api.radarSearch(queryObj, callback);
+            function search(queryObj, callback) {
+              api.radarSearch(queryObj, callback);
             };
 
-            googlePlaces.getDetails = function(queryObj, callback) {
+            function getDetails(queryObj, callback) {
               if ((typeof queryObj) === 'string') {
-                this.api.getDetails({ placeId: queryObj }, callback);
+                api.getDetails({ placeId: queryObj }, callback);
               }
               else {
-                this.api.getDetails(queryObj, callback);
+                api.getDetails(queryObj, callback);
               }
             };
 
-            return (googlePlaces);
           },
           function(rejectReason){
             return $q.reject(rejectReason);

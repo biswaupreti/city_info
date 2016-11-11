@@ -7,76 +7,86 @@
       createAutoCompleteService: function(mapToBind) {
         return LoadGoogleMapsApi.then(
           function(){
+            var results = [];
+            var boundMap = mapToBind;
+
+            var bounds = null;
+
+            var boundLocation = null;
+            var boundArea = null;
+
+            var api = new google.maps.places.AutocompleteService();
+
             var autoComplete = {
-              results: [],
-              api: new google.maps.places.AutocompleteService()
+              bindToMapArea: bindToMapArea,
+              bindToBounds: bindToBounds,
+              getPlacePredictions: getPlacePredictions,
+              getQueryPredictions: getQueryPredictions,
+              getResults: getResults,
+
+            };
+            return autoComplete;
+
+            function bindToMapArea(map) {
+              boundMap = map;
             };
 
-            autoComplete.bindToMapArea = function(map) {
-                autoComplete.boundMap = map;
+            function bindToBounds(bounds) {
+              bounds = bounds;
             };
 
-            autoComplete.bindToBounds = function(bounds) {
-                autoComplete.bounds = bounds;
+            function bindToLocation(latLng, radius) {
+              center = latLng;
+              radius = radius;
             };
 
-            autoComplete.bindToLocation = function(latLng, radius) {
-                autoComplete.center = latLng;
-                autoComplete.radius = radius;
+            function getPlacePredictions(query) {
+              return handleQuery(query, 'getPlacePredictions');
             };
 
-            autoComplete.getPlacePredictions = function(query) {
-                return handleQuery(query, 'getPlacePredictions');
+            function getQueryPredictions(query) {
+              return handleQuery(query, 'getQueryPredictions');
             };
 
-            autoComplete.getQueryPredictions = function(query) {
-                return handleQuery(query, 'getQueryPredictions');
-            };
-
-            autoComplete.getResults = function() {
-              return autoComplete.results;
+            function getResults() {
+              return results;
             }
 
             function createRequest(userQuery) {
-                var queryObj = {};
+              var queryObj = {};
 
-                if (autoComplete.boundMap != null) {
-                  queryObj.bounds = autoComplete.boundMap.getBounds();
+              if (boundMap != null) {
+                queryObj.bounds = boundMap.getBounds();
+              }
+              else if (bounds != null) {
+                queryObj.bounds = bounds;
+              }
+              else if (center != null) {
+                queryObj.location = center;
+                if (autoComplete.radius != null) {
+                  queryObj.radius = radius;
                 }
-                else if (autoComplete.bounds != null) {
-                  queryObj.bounds = autoComplete.bounds;
-                }
-                else if (autoComplete.center != null) {
-                  queryObj.location = autoComplete.center;
-                  if (autoComplete.radius != null) {
-                    queryObj.radius = autoComplete.radius;
-                  }
-                }
+              }
 
-                queryObj.input = userQuery;
-                return queryObj;
+              queryObj.input = userQuery;
+              return queryObj;
             };
 
             function handleQuery(queryStr, queryFuncName) {
-                var deferred = $q.defer();
+              var deferred = $q.defer();
 
-                var request = createRequest(queryStr);
-                autoComplete.api[queryFuncName](request, function(resultsArr, status) {
-                  if (status == google.maps.places.PlacesServiceStatus.OK) {
-                    deferred.resolve(resultsArr);
-                  }
-                  else {
-                    deferred.reject(status);
-                  }
-                });
+              var request = createRequest(queryStr);
+              api[queryFuncName](request, function(resultsArr, status) {
+                if (status == google.maps.places.PlacesServiceStatus.OK) {
+                  deferred.resolve(resultsArr);
+                }
+                else {
+                  deferred.reject(status);
+                }
+              });
 
-                return deferred.promise;
+              return deferred.promise;
             };
-
-            if (mapToBind !== null) {
-              autoComplete.bindToMapArea(mapToBind);
-            }
-            return (autoComplete);
           },
           function(rejectReason){
             return $q.reject(rejectReason);

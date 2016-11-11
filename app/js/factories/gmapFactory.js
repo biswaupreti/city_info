@@ -17,32 +17,41 @@
               mapTypeId: 'roadmap',
               disableDefaultUI: true
             };
+            var map = new google.maps.Map(mapDiv, mapOptions);
 
-            var mapObj = {};
-            mapObj.map = new google.maps.Map(mapDiv, mapOptions);
-            mapObj.options = mapOptions;
+            var mapObj = {
+              setCenter: setCenter,
+              panTo: panTo,
+              setZoom: setZoom,
+              fitBounds: fitBounds,
+              getBounds: getBounds,
+              createMarker: createMarker,
+              showMarker: showMarker,
+              removeMarker: removeMarker,
+            };
+            return mapObj;
 
-            mapObj.setCenter = function(center) {
-              this.map.setCenter(center);
+            function setCenter(center) {
+              map.setCenter(center);
             };
 
-            mapObj.panTo = function(center) {
-              this.map.panTo(center);
+            function panTo(center) {
+              map.panTo(center);
             };
 
-            mapObj.setZoom = function(zoom) {
-              this.map.setZoom(zoom);
+            function setZoom(zoom) {
+              map.setZoom(zoom);
             };
 
-            mapObj.fitBounds = function(bounds) {
-              this.map.fitBounds(bounds);
+            function fitBounds(bounds) {
+              map.fitBounds(bounds);
             }
 
-            mapObj.getBounds = function() {
-              return this.map.getBounds();
+            function getBounds() {
+              return map.getBounds();
             }
 
-            mapObj.createMarker = function(location, icon) {
+            function createMarker(location, icon) {
               var marker = new google.maps.Marker({
                 position: location
               });
@@ -54,15 +63,14 @@
               return marker;
             }
 
-            mapObj.showMarker = function(marker) {
-              marker.setMap(this.map);
+            function showMarker(marker) {
+              marker.setMap(map);
             };
 
-            mapObj.removeMarker = function(marker) {
+            function removeMarker(marker) {
               marker.setMap(null);
             };
 
-            return (mapObj);
           },
           function(rejectReason) {
             return $q.reject(rejectReason);

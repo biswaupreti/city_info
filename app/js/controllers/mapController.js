@@ -12,12 +12,14 @@
     vm.showUserPosition = true;
     vm.userPosMarker = null;
 
+    vm.centerToUser = centerToUser;
+    vm.showFavorites = showFavorites;
+
     //empty placeholder for searchbar
     vm.poiAutocompleteService = {
       getQueryPredictions: function(){ return []; },
       getPlacePredictions: function(){ return []; }
     };
-
 
     $scope.$watch('fullscreen', function(newVal, oldVal) {
       if (newVal == true && vm.map === null) {
@@ -82,14 +84,14 @@
       );
     };
 
-    vm.centerToUser = function() {
+    function centerToUser() {
       if (vm.map !== null && vm.latestLocation != null) {
         vm.map.setZoom(15);
         vm.map.panTo(vm.latestLocation);
       }
     };
 
-    vm.showFavorites = function() {
+    function showFavorites() {
       console.log('Favorites button pressed');
     };
 

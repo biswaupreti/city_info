@@ -17,7 +17,7 @@
       this.$get = function($window, $q) {
         var deferred = $q.defer();
 
-        var loadGMapsScript = function() {
+        function loadGMapsScript() {
           if (myConfig.baseUrl == null) {
             console.log('No Google Maps API URL defined, check Angular config!');
             deferred.reject('No Google Maps API URL');
