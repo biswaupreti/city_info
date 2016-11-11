@@ -1,8 +1,8 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'MapFactory', 'PoiApi', MapController]);
+  angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'MapFactory', 'PoiApiFactory', 'PoiAutocompleteFactory', MapController]);
 
-  function MapController($scope, MapFactory, PoiApi) {
+  function MapController($scope, MapFactory, PoiApiFactory, PoiAutocompleteFactory) {
     var vm = this;
     vm.map = null;
     vm.poiApi = null;
@@ -65,7 +65,7 @@
     };
 
     function initPoiApi(map) {
-      PoiApi.createPlaces(map).then(
+      PoiApiFactory.createPlaces(map).then(
         function(placesApi) {
           vm.poiApi = placesApi;
         },
@@ -74,7 +74,7 @@
     };
 
     function initPoiAutocomplete(map) {
-      PoiApi.createAutoCompleteService(map).then(
+      PoiAutocompleteFactory.createAutoCompleteService(map).then(
         function(autoCompleteService) {
           vm.poiAutocompleteService = autoCompleteService;
         },
