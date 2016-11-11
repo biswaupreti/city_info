@@ -6,7 +6,7 @@
     return {
       createPlaces: function(attributionContainer) {
         return LoadGoogleMapsApi.then(
-          function(){
+          function() {
             var googlePlaces = {};
 
             //Check that attributionContainer is valid (= Google Maps object or HTML div)
@@ -68,7 +68,19 @@
                 autoComplete.radius = radius;
             };
 
-            var createRequest = function(userQuery) {
+            autoComplete.getPlacePredictions = function(query) {
+                return handleQuery(query, 'getPlacePredictions');
+            };
+
+            autoComplete.getQueryPredictions = function(query) {
+                return handleQuery(query, 'getQueryPredictions');
+            };
+
+            autoComplete.getResults = function() {
+              return autoComplete.results;
+            }
+
+            function createRequest(userQuery) {
                 var queryObj = {};
 
                 if (autoComplete.boundMap != null) {
@@ -88,7 +100,7 @@
                 return queryObj;
             };
 
-            var handleQuery = function(queryStr, queryFuncName) {
+            function handleQuery(queryStr, queryFuncName) {
                 var deferred = $q.defer();
 
                 var request = createRequest(queryStr);
@@ -103,19 +115,6 @@
 
                 return deferred.promise;
             };
-
-            autoComplete.getPlacePredictions = function(query) {
-                return handleQuery(query, 'getPlacePredictions');
-            };
-
-            autoComplete.getQueryPredictions = function(query) {
-                return handleQuery(query, 'getQueryPredictions');
-            };
-
-            autoComplete.getResults = function() {
-              return autoComplete.results;
-            }
-
 
             if (mapToBind !== null) {
               autoComplete.bindToMapArea(mapToBind);
