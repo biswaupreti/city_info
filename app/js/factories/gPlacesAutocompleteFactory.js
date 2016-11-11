@@ -1,6 +1,8 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.factories').factory('PoiAutocompleteFactory', ['LoadGoogleMapsApi', '$q', GPlacesAutocompleteFactory]);
+  angular.module('cityInfo.factories').factory('PoiAutocompleteFactory', GPlacesAutocompleteFactory);
+
+  GPlacesAutocompleteFactory.$inject = ['LoadGoogleMapsApi', '$q'];
 
   function GPlacesAutocompleteFactory(LoadGoogleMapsApi, $q) {
     return {

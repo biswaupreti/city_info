@@ -1,6 +1,8 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'MapFactory', 'PoiApiFactory', 'PoiAutocompleteFactory', MapController]);
+  angular.module('cityInfo.controllers').controller('MapController', MapController);
+
+  MapController.$inject = ['$scope', 'MapFactory', 'PoiApiFactory', 'PoiAutocompleteFactory'];
 
   function MapController($scope, MapFactory, PoiApiFactory, PoiAutocompleteFactory) {
     var vm = this;

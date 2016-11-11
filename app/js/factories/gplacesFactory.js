@@ -1,7 +1,9 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.factories').factory('PoiApiFactory', ['LoadGoogleMapsApi', '$q', GPlacesFactory]);
+  angular.module('cityInfo.factories').factory('PoiApiFactory',GPlacesFactory);
 
+  GPlacesFactory.$inject =  ['LoadGoogleMapsApi', '$q'];
+  
   function GPlacesFactory(LoadGoogleMapsApi, $q) {
     return {
       createPlaces: function(attributionContainer) {
