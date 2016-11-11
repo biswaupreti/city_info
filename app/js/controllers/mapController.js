@@ -1,66 +1,82 @@
-angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'Map', 'PoiApi', function($scope, Map, PoiApi){
-  $scope.mapInitialized = false;
+angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'MapFactory', 'PoiApi', function($scope, MapFactory, PoiApi){
   $scope.map = null;
   $scope.poiApi = null;
-
   $scope.latestLocation = null;
+  $scope.showUserPosition = true;
 
+  //empty placeholder for searchbar
   $scope.poiAutocompleteService = {
     getQueryPredictions: function(){ return []; },
     getPlacePredictions: function(){ return []; }
   };
 
+  var userPosMarker = null;
+
   $scope.$watch('fullscreen', function(newVal, oldVal) {
-    if (newVal == true && !$scope.mapInitialized) {
-      var myLatLng = {
-        lat: 61.497054,
-        lng: 23.758784
-      };
-
-      var mapDiv = document.getElementById('gmap');
-      Map.createMap(mapDiv, myLatLng).then(
-        function(map){
-          $scope.map = map;
-          $scope.mapInitialized = true;
-
-          PoiApi.createPlaces($scope.map).then(
-            function(placesApi) {
-              $scope.poiApi = placesApi;
-              $scope.poiApi.searchWithDetails({
-                location: myLatLng,
-                radius: 500,
-                types: ['cafe']
-              },
-                function(results, status) {
-                  if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    for (var i = 0; i < results.length; i++) {
-                      place = results[i];
-                      var placeLoc = place.geometry.location;
-                      var marker = $scope.map.createMarker(placeLoc);
-                      $scope.map.showMarker(marker);
-                    }
-                  }
-                }
-              );
-            },
-            function(rejectReason) {}
-          );
-
-          PoiApi.createAutoCompleteService().then(
-            function(autoCompleteService) {
-              $scope.poiAutocompleteService = autoCompleteService;
-              $scope.poiAutocompleteService.bindToMapArea(map);
-            },
-            function(rejectReason) {}
-          );
-        },
-        function(rejectReason){}
-      );
+    if (newVal == true && $scope.map === null) {
+      initMap();
     }
   });
 
+  var initMap = function() {
+    var mapCenter = $scope.latestLocation !== null ? $scope.latestLocation : {lat: 61.5, lng: 23 };
+
+    //TODO create a directive for map that creates some div for map and use that instead
+    var mapDiv = document.getElementById('gmap');
+
+    MapFactory.createMap(mapDiv, mapCenter).then(
+      function(map) {
+        $scope.map = map;
+
+        initUserPositionMarker($scope.map, mapCenter);
+        if ($scope.showUserPosition) {
+          showUserPosMarker();
+        }
+
+        initPoiApi($scope.map);
+        initPoiAutocomplete($scope.map);
+      },
+      function(rejectReason){}
+    );
+  };
+
+  var initUserPositionMarker = function(map, initPosition) {
+    userPosMarker = map.createMarker(initPosition, 'img/userpositionmarker.svg');
+    userPosMarker.setClickable(false);
+  };
+
+  var updateUserPosMarker = function() {
+    if (userPosMarker !== null) {
+      userPosMarker.setPosition($scope.latestLocation);
+    }
+  }
+
+  var showUserPosMarker = function() {
+    if ($scope.map !== null && userPosMarker !== null) {
+        $scope.map.showMarker(userPosMarker);
+    }
+  };
+
+  var initPoiApi = function(map) {
+    PoiApi.createPlaces(map).then(
+      function(placesApi) {
+        $scope.poiApi = placesApi;
+      },
+      function(rejectReason) {}
+    );
+  };
+
+  var initPoiAutocomplete = function(map) {
+    PoiApi.createAutoCompleteService(map).then(
+      function(autoCompleteService) {
+        $scope.poiAutocompleteService = autoCompleteService;
+      },
+      function(rejectReason) {}
+    );
+  };
+
   $scope.centerToUser = function() {
-    if ($scope.map != null && $scope.latestLocation != null) {
+    if ($scope.map !== null && $scope.latestLocation != null) {
       $scope.map.setZoom(15);
       $scope.map.panTo($scope.latestLocation);
     }
@@ -70,8 +86,6 @@ angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'M
     console.log('Favorites button pressed');
   };
 
-  var userPosMarker = null;
-  llb_app.request('location');
   llb_app.addListener('location', function(data){
     var latLng = {};
     //Quick fix so that listener works with both custom events and actual events
@@ -85,14 +99,7 @@ angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'M
     }
 
     $scope.latestLocation = latLng;
-    if ($scope.map !== null) {
-      if (userPosMarker === null) {
-        userPosMarker = $scope.map.createMarker(latLng, 'img/userpositionmarker.svg');
-        userPosMarker.setClickable(false);
-        $scope.map.showMarker(userPosMarker);
-      }
-
-      userPosMarker.setPosition(latLng);
-    }
+    updateUserPosMarker();
   });
+  llb_app.request('location');
 }]);

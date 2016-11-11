@@ -1,8 +1,8 @@
-angular.module('cityInfo.factories').factory('Map', ['LoadGoogleMapsApi', '$q', function(LoadGoogleMapsApi, $q, mapDiv, center){
+angular.module('cityInfo.factories').factory('MapFactory', ['LoadGoogleMapsApi', '$q', function(LoadGoogleMapsApi, $q, mapDiv, center){
   return {
     createMap: function(mapDiv, center) {
       return LoadGoogleMapsApi.then(
-        function(){
+        function() {
           if (!(mapDiv instanceof Element)) {
             return $q.reject("MapDiv was not Element");
           }
@@ -43,7 +43,7 @@ angular.module('cityInfo.factories').factory('Map', ['LoadGoogleMapsApi', '$q', 
               position: location
             });
 
-            if (icon != null) {
+            if (icon !== null) {
               marker.setIcon(icon);
             }
 
@@ -60,7 +60,7 @@ angular.module('cityInfo.factories').factory('Map', ['LoadGoogleMapsApi', '$q', 
 
           return (mapObj);
         },
-        function(rejectReason){
+        function(rejectReason) {
           return $q.reject(rejectReason);
         }
       );

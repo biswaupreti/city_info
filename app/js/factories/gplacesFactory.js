@@ -43,7 +43,7 @@ angular.module('cityInfo.factories').factory('PoiApi', ['LoadGoogleMapsApi', '$q
       );
     },
 
-    createAutoCompleteService: function() {
+    createAutoCompleteService: function(mapToBind) {
       return LoadGoogleMapsApi.then(
         function(){
           var autoComplete = {
@@ -112,6 +112,10 @@ angular.module('cityInfo.factories').factory('PoiApi', ['LoadGoogleMapsApi', '$q
             return autoComplete.results;
           }
 
+
+          if (mapToBind !== null) {
+            autoComplete.bindToMapArea(mapToBind);
+          }
           return (autoComplete);
         },
         function(rejectReason){

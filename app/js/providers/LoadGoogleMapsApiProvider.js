@@ -13,7 +13,7 @@ angular.module('cityInfo.providers').provider('LoadGoogleMapsApi', function() {
     this.$get = function($window, $q) {
       var deferred = $q.defer();
 
-      function loadGMapsScript() {
+      var loadGMapsScript = function() {
         if (myConfig.baseUrl == null) {
           console.log('No Google Maps API URL defined, check Angular config!');
           deferred.reject('No Google Maps API URL');
