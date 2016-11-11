@@ -1,9 +1,9 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.factories').factory('MapFactory', GMapFactory);
+  angular.module('cityInfo.map').factory('MapFactory', GMapFactory);
 
   GMapFactory.$inject = ['LoadGoogleMapsApi', '$q'];
-  
+
   function GMapFactory(LoadGoogleMapsApi, $q, mapDiv, center) {
     return {
       createMap: function(mapDiv, center) {

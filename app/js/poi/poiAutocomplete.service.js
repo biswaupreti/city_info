@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.services').service('PoiAutocompleteService', PoiAutocompleteService);
+  angular.module('cityInfo.poi').service('PoiAutocompleteService', PoiAutocompleteService);
 
   PoiAutocompleteService.$inject = ['LoadGoogleMapsApi', '$q'];
 

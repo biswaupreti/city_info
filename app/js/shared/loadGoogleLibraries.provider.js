@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.providers').provider('LoadGoogleMapsApi', LoadGoogleMapsApiProvider);
+  angular.module('cityInfo.shared').provider('LoadGoogleMapsApi', LoadGoogleMapsApiProvider);
 
   function LoadGoogleMapsApiProvider() {
       var myConfig = {
