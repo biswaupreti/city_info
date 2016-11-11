@@ -4,17 +4,16 @@
   angular.module('cityInfo.factories', ['cityInfo.providers']);
   angular.module('cityInfo.controllers', ['cityInfo.factories']);
 
-  var pw = angular.module('cityInfo', ['ngMaterial', 'cityInfo.factories', 'cityInfo.controllers']);
-  pw.config(function($mdThemingProvider, LoadGoogleMapsApiProvider) {
+  angular.module('cityInfo', ['ngMaterial', 'cityInfo.factories', 'cityInfo.controllers'])
+  .config(function($mdThemingProvider, LoadGoogleMapsApiProvider) {
     $mdThemingProvider.theme('default').dark();
     LoadGoogleMapsApiProvider.setConfig({
       apiKey: 'AIzaSyDqNsDFc1Jz7XgdsoKWYnGyNBpZRL6PRh4',
       libraries: ['places']
     });
 
-  });
-
-  pw.run(['$rootScope', function($rootScope){
+  })
+  .run(['$rootScope', function($rootScope){
     $rootScope.fullscreen = false;
     $rootScope.initialized = false;
 
