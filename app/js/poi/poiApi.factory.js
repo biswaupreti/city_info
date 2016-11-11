@@ -1,6 +1,6 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.poi').factory('PoiApiFactory',GPlacesFactory);
+  angular.module('cityInfo.poi').factory('PoiApiFactory', GPlacesFactory);
 
   GPlacesFactory.$inject =  ['LoadGoogleMapsApi', '$q'];
 
