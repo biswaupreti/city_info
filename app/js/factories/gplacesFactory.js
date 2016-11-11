@@ -1,6 +1,8 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.factories').factory('PoiApi', ['LoadGoogleMapsApi', '$q', function(LoadGoogleMapsApi, $q) {
+  angular.module('cityInfo.factories').factory('PoiApi', ['LoadGoogleMapsApi', '$q', GPlacesFactory]);
+
+  function GPlacesFactory(LoadGoogleMapsApi, $q) {
     return {
       createPlaces: function(attributionContainer) {
         return LoadGoogleMapsApi.then(
@@ -67,7 +69,6 @@
             };
 
             var createRequest = function(userQuery) {
-                queryObj = {};
                 var queryObj = {};
 
                 if (autoComplete.boundMap != null) {
@@ -127,5 +128,5 @@
         );
       }
     };
-  }]);
+  };
 })();

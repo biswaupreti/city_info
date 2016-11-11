@@ -1,6 +1,8 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'MapFactory', 'PoiApi', function($scope, MapFactory, PoiApi){
+  angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'MapFactory', 'PoiApi', MapController]);
+
+  function MapController($scope, MapFactory, PoiApi) {
     $scope.map = null;
     $scope.poiApi = null;
     $scope.latestLocation = null;
@@ -104,5 +106,5 @@
       updateUserPosMarker();
     });
     llb_app.request('location');
-  }]);
+  };
 })();

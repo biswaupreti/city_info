@@ -1,6 +1,8 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.providers').provider('LoadGoogleMapsApi', function() {
+  angular.module('cityInfo.providers').provider('LoadGoogleMapsApi', LoadGoogleMapsApiProvider);
+
+  function LoadGoogleMapsApiProvider() {
       var myConfig = {
         baseUrl: 'https://maps.googleapis.com/maps/api/js',
         apiKey: null,
@@ -59,5 +61,5 @@
       };
 
       this.$get.$inject = ['$window', '$q'];
-  });
+  };
 })();

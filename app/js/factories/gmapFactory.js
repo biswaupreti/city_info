@@ -1,6 +1,8 @@
 (function() {
   'use strict';
-  angular.module('cityInfo.factories').factory('MapFactory', ['LoadGoogleMapsApi', '$q', function(LoadGoogleMapsApi, $q, mapDiv, center){
+  angular.module('cityInfo.factories').factory('MapFactory', ['LoadGoogleMapsApi', '$q', GMapFactory]);
+
+  function GMapFactory(LoadGoogleMapsApi, $q, mapDiv, center) {
     return {
       createMap: function(mapDiv, center) {
         return LoadGoogleMapsApi.then(
@@ -68,5 +70,5 @@
         );
       }
     };
-  }]);
+  };
 })();
