@@ -3,90 +3,93 @@
   angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'MapFactory', 'PoiApi', MapController]);
 
   function MapController($scope, MapFactory, PoiApi) {
-    $scope.map = null;
-    $scope.poiApi = null;
-    $scope.latestLocation = null;
-    $scope.showUserPosition = true;
+    var vm = this;
+    vm.map = null;
+    vm.poiApi = null;
+
+    vm.latestLocation = null;
+
+    vm.showUserPosition = true;
+    vm.userPosMarker = null;
 
     //empty placeholder for searchbar
-    $scope.poiAutocompleteService = {
+    vm.poiAutocompleteService = {
       getQueryPredictions: function(){ return []; },
       getPlacePredictions: function(){ return []; }
     };
 
-    var userPosMarker = null;
 
     $scope.$watch('fullscreen', function(newVal, oldVal) {
-      if (newVal == true && $scope.map === null) {
+      if (newVal == true && vm.map === null) {
         initMap();
       }
     });
 
-    var initMap = function() {
-      var mapCenter = $scope.latestLocation !== null ? $scope.latestLocation : {lat: 61.5, lng: 23 };
+    function initMap() {
+      var mapCenter = vm.latestLocation !== null ? vm.latestLocation : {lat: 61.5, lng: 23 };
 
       //TODO create a directive for map that creates some div for map and use that instead
       var mapDiv = document.getElementById('gmap');
 
       MapFactory.createMap(mapDiv, mapCenter).then(
         function(map) {
-          $scope.map = map;
+          vm.map = map;
 
-          initUserPositionMarker($scope.map, mapCenter);
-          if ($scope.showUserPosition) {
+          initUserPositionMarker(vm.map, mapCenter);
+          if (vm.showUserPosition) {
             showUserPosMarker();
           }
 
-          initPoiApi($scope.map);
-          initPoiAutocomplete($scope.map);
+          initPoiApi(vm.map);
+          initPoiAutocomplete(vm.map);
         },
         function(rejectReason){}
       );
     };
 
-    var initUserPositionMarker = function(map, initPosition) {
-      userPosMarker = map.createMarker(initPosition, 'img/userpositionmarker.svg');
-      userPosMarker.setClickable(false);
+    function initUserPositionMarker(map, initPosition) {
+      vm.userPosMarker = map.createMarker(initPosition, 'img/userpositionmarker.svg');
+      vm.userPosMarker.setClickable(false);
     };
 
-    var updateUserPosMarker = function() {
-      if (userPosMarker !== null) {
-        userPosMarker.setPosition($scope.latestLocation);
+    function updateUserPosMarker() {
+      if (vm.userPosMarker !== null) {
+        vm.userPosMarker.setPosition(vm.latestLocation);
       }
     }
 
-    var showUserPosMarker = function() {
-      if ($scope.map !== null && userPosMarker !== null) {
-          $scope.map.showMarker(userPosMarker);
+    function showUserPosMarker() {
+      if (vm.map !== null && vm.userPosMarker !== null) {
+          vm.map.showMarker(vm.userPosMarker);
       }
     };
 
-    var initPoiApi = function(map) {
+    function initPoiApi(map) {
       PoiApi.createPlaces(map).then(
         function(placesApi) {
-          $scope.poiApi = placesApi;
+          vm.poiApi = placesApi;
         },
         function(rejectReason) {}
       );
     };
 
-    var initPoiAutocomplete = function(map) {
+    function initPoiAutocomplete(map) {
       PoiApi.createAutoCompleteService(map).then(
         function(autoCompleteService) {
-          $scope.poiAutocompleteService = autoCompleteService;
+          vm.poiAutocompleteService = autoCompleteService;
         },
         function(rejectReason) {}
       );
     };
 
-    $scope.centerToUser = function() {
-      if ($scope.map !== null && $scope.latestLocation != null) {
-        $scope.map.setZoom(15);
-        $scope.map.panTo($scope.latestLocation);
+    vm.centerToUser = function() {
+      if (vm.map !== null && vm.latestLocation != null) {
+        vm.map.setZoom(15);
+        vm.map.panTo(vm.latestLocation);
       }
     };
 
-    $scope.showFavorites = function() {
+    vm.showFavorites = function() {
       console.log('Favorites button pressed');
     };
 
@@ -102,7 +105,7 @@
         latLng.lng = data.longitude;
       }
 
-      $scope.latestLocation = latLng;
+      vm.latestLocation = latLng;
       updateUserPosMarker();
     });
     llb_app.request('location');

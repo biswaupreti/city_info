@@ -33,7 +33,7 @@
       </div>
     </div>
 
-    <div ng-controller='MapController as mc' ng-show='$root.fullscreen'>
+    <div ng-controller='MapController as map' ng-show='$root.fullscreen'>
 
       <div id='gmap' ng-style='fullscreen_app_dimensions'></div>
 
@@ -43,7 +43,7 @@
         md-input-name='poi-search'
         md-selected-item='selectedItem'
         md-search-text='searchText'
-        md-items='item in poiAutocompleteService.getQueryPredictions(searchText)'
+        md-items='item in map.poiAutocompleteService.getQueryPredictions(searchText)'
         md-delay='200'
         md-min-length='2'
         md-item-text='item.description'>
@@ -51,11 +51,11 @@
           {{item.description}}
         </md-item-template>
       </md-autocomplete>
-      <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-click='centerToUser()'>
+      <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-click='map.centerToUser()'>
         <md-icon md-svg-src='img/icons/ic_my_location_black_24px.svg'></md-icon>
       </md-button>
 
-      <md-button id='favorites-btn' class='md-fab md-primary md-hue-2' aria-label='Favorites' ng-click='showFavorites()'>
+      <md-button id='favorites-btn' class='md-fab md-primary md-hue-2' aria-label='Favorites' ng-click='map.showFavorites()'>
         <md-icon md-svg-src='img/icons/ic_place_black_24px.svg'></md-icon>
       </md-button>
     </div>
