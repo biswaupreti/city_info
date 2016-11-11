@@ -35,10 +35,6 @@
     llb_app.request('window_dimensions');
   };
 
-  angular.module('cityInfo.shared', []);
-  angular.module('cityInfo.map', ['cityInfo.shared']);
-  angular.module('cityInfo.poi', ['cityInfo.shared'])
-
   angular.module('cityInfo', ['ngMaterial', 'cityInfo.map', 'cityInfo.poi'])
   .config(['$mdThemingProvider', 'LoadGoogleMapsApiProvider', configureApp])
   .run(['$rootScope', onAppInitialized]);
