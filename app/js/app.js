@@ -1,4 +1,5 @@
 (function() {
+  'use strict';
   angular.module('cityInfo.providers', []);
   angular.module('cityInfo.factories', ['cityInfo.providers']);
   angular.module('cityInfo.controllers', ['cityInfo.factories']);

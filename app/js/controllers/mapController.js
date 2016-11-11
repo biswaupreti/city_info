@@ -1,4 +1,5 @@
 (function() {
+  'use strict';
   angular.module('cityInfo.controllers').controller('MapController', ['$scope', 'MapFactory', 'PoiApi', function($scope, MapFactory, PoiApi){
     $scope.map = null;
     $scope.poiApi = null;

@@ -1,4 +1,5 @@
 (function() {
+  'use strict';
   angular.module('cityInfo.providers').provider('LoadGoogleMapsApi', function() {
       var myConfig = {
         baseUrl: 'https://maps.googleapis.com/maps/api/js',
