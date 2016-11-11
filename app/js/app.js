@@ -36,8 +36,9 @@
   };
 
   angular.module('cityInfo.providers', []);
+  angular.module('cityInfo.services', ['cityInfo.providers'])
   angular.module('cityInfo.factories', ['cityInfo.providers']);
-  angular.module('cityInfo.controllers', ['cityInfo.factories']);
+  angular.module('cityInfo.controllers', ['cityInfo.factories', 'cityInfo.services']);
 
   angular.module('cityInfo', ['ngMaterial', 'cityInfo.factories', 'cityInfo.controllers'])
   .config(['$mdThemingProvider', 'LoadGoogleMapsApiProvider', configureApp])

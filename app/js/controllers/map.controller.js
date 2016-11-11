@@ -2,9 +2,9 @@
   'use strict';
   angular.module('cityInfo.controllers').controller('MapController', MapController);
 
-  MapController.$inject = ['$scope', 'MapFactory', 'PoiApiFactory', 'PoiAutocompleteFactory'];
+  MapController.$inject = ['$scope', 'MapFactory', 'PoiApiFactory', 'PoiAutocompleteService'];
 
-  function MapController($scope, MapFactory, PoiApiFactory, PoiAutocompleteFactory) {
+  function MapController($scope, MapFactory, PoiApiFactory, PoiAutocompleteService) {
     var vm = this;
     vm.map = null;
     vm.poiApi = null;
@@ -17,11 +17,7 @@
     vm.centerToUser = centerToUser;
     vm.showFavorites = showFavorites;
 
-    //empty placeholder for searchbar
-    vm.poiAutocompleteService = {
-      getQueryPredictions: function(){ return []; },
-      getPlacePredictions: function(){ return []; }
-    };
+    vm.getQueryPredictions = getPoiAutoCompleteResults;
 
     $scope.$watch('fullscreen', function(newVal, oldVal) {
       if (newVal == true && vm.map === null) {
@@ -45,7 +41,6 @@
           }
 
           initPoiApi(vm.map);
-          initPoiAutocomplete(vm.map);
         },
         function(rejectReason){}
       );
@@ -69,18 +64,9 @@
     };
 
     function initPoiApi(map) {
-      PoiApiFactory.createPlaces(map).then(
+      PoiApiFactory.createApi(map).then(
         function(placesApi) {
           vm.poiApi = placesApi;
-        },
-        function(rejectReason) {}
-      );
-    };
-
-    function initPoiAutocomplete(map) {
-      PoiAutocompleteFactory.createAutoCompleteService(map).then(
-        function(autoCompleteService) {
-          vm.poiAutocompleteService = autoCompleteService;
         },
         function(rejectReason) {}
       );
@@ -96,6 +82,22 @@
     function showFavorites() {
       console.log('Favorites button pressed');
     };
+
+    function getPoiAutoCompleteResults(queryText) {
+      var queryObj = {
+        input: queryText
+      };
+
+      if (vm.map !== null) {
+        queryObj.bounds = vm.map.getBounds();
+      }
+      else if (vm.latestLocation !== null) {
+        queryObj.location = vm.latestLocation;
+        queryObj.radius = 500;
+      }
+
+      return PoiAutocompleteService.getQueryPredictions(queryObj);
+    }
 
     llb_app.addListener('location', function(data){
       var latLng = {};

@@ -3,10 +3,10 @@
   angular.module('cityInfo.factories').factory('PoiApiFactory',GPlacesFactory);
 
   GPlacesFactory.$inject =  ['LoadGoogleMapsApi', '$q'];
-  
+
   function GPlacesFactory(LoadGoogleMapsApi, $q) {
     return {
-      createPlaces: function(attributionContainer) {
+      createApi: function(attributionContainer) {
         return LoadGoogleMapsApi.then(
           function() {
             var api = null;
