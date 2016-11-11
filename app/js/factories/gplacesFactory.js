@@ -68,6 +68,7 @@
 
             var createRequest = function(userQuery) {
                 queryObj = {};
+                var queryObj = {};
 
                 if (autoComplete.boundMap != null) {
                   queryObj.bounds = autoComplete.boundMap.getBounds();
