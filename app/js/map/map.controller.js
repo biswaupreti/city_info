@@ -26,7 +26,7 @@
     });
 
     function initMap() {
-      var mapCenter = vm.latestLocation !== null ? vm.latestLocation : {lat: 61.5, lng: 23 };
+      /*var mapCenter = vm.latestLocation !== null ? vm.latestLocation : {lat: 61.5, lng: 23 };
 
       //TODO create a directive for map that creates some div for map and use that instead
       var mapDiv = document.getElementById('gmap');
@@ -43,7 +43,7 @@
           initPoiApi(vm.map);
         },
         function(rejectReason){}
-      );
+      );*/
     };
 
     function initUserPositionMarker(map, initPosition) {

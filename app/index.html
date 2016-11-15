@@ -18,6 +18,7 @@
   <script type="text/javascript" src="js/map/map.module.js"></script>
   <script type="text/javascript" src="js/map/map.controller.js"></script>
   <script type="text/javascript" src="js/map/map.factory.js"></script>
+  <script type="text/javascript" src="js/map/map.directive.js"></script>
 
   <!-- points of interest -->
   <script type="text/javascript" src="js/poi/poi.module.js"></script>
@@ -40,8 +41,8 @@
 
     <div ng-controller='MapController as map' ng-show='$root.fullscreen'>
 
-      <div id='gmap' ng-style='fullscreen_app_dimensions'></div>
 
+        <apt-map center='{"lat": 62, "lng": 23}' style="width: 200px; height: 200px;"></apt-map>
       <md-autocomplete
         id='poi-searchbar'
         class='searchbar'
