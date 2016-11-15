@@ -56,7 +56,6 @@
           $window.addEventListener('load', loadGMapsScript, false);
         }
 
-        loadGMapsScript();
         return deferred.promise;
       };
 
