@@ -14,17 +14,22 @@
         angular.extend(myConfig, config);
       }
 
+      var loadDeferred = null;
       this.$get = function($window, $q) {
-        var deferred = $q.defer();
+        if (loadDeferred !== null) {
+          return loadDeferred.promise;
+        }
+
+        loadDeferred = $q.defer();
 
         function loadGMapsScript() {
           if (myConfig.baseUrl == null) {
             console.log('No Google Maps API URL defined, check Angular config!');
-            deferred.reject('No Google Maps API URL');
+            loadDeferred.reject('No Google Maps API URL');
           }
           else if (myConfig.apiKey == null) {
             console.log('No Google Maps API Key defined, check Angular config!');
-            deferred.reject('No Google Maps API Key');
+            loadDeferred.reject('No Google Maps API Key');
           }
           else {
             var fullUrl = myConfig.baseUrl + '?key=' + myConfig.apiKey;
@@ -47,16 +52,21 @@
         };
 
         $window.googlemapsapisloaded = function() {
-          deferred.resolve();
+          loadDeferred.resolve();
         };
 
-        if ($window.attachEvent) {
-          $window.attachEvent('onload', loadGMapsScript);
-        } else {
-          $window.addEventListener('load', loadGMapsScript, false);
+        if (document.readyState !== "complete") {
+          if ($window.attachEvent) {
+            $window.attachEvent('onload', loadGMapsScript);
+          } else {
+            $window.addEventListener('load', loadGMapsScript, false);
+          }
+        }
+        else {
+          loadGMapsScript();
         }
 
-        return deferred.promise;
+        return loadDeferred.promise;
       };
 
       this.$get.$inject = ['$window', '$q'];
