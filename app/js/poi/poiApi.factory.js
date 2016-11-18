@@ -13,12 +13,14 @@
             //Check that attributionContainer is valid (= Google Maps object or HTML div)
             if (attributionContainer == null) {
               return $q.reject("attributionContainer is null");
-            } else if (attributionContainer instanceof google.maps.Map ||
-                attributionContainer instanceof HTMLDivElement) {
+            } else if (attributionContainer instanceof google.maps.Map) {
               api = new google.maps.places.PlacesService(attributionContainer);
-            } else if (attributionContainer.map !== undefined && attributionContainer.map instanceof google.maps.Map) {
-              api = new google.maps.places.PlacesService(attributionContainer.map);
-            } else {
+            } else if (attributionContainer.getGoogleMap !== undefined && attributionContainer.getGoogleMap() instanceof google.maps.Map) {
+              api = new google.maps.places.PlacesService(attributionContainer.getGoogleMap());
+            } else if (attributionContainer instanceof HTMLDivElement) {
+              api = new google.maps.places.PlacesService(attributionContainer);
+            }
+            else {
                 return $q.reject("attributionContainer is null");
             }
 

@@ -30,6 +30,7 @@
               createMarker: createMarker,
               showMarker: showMarker,
               removeMarker: removeMarker,
+              getGoogleMap: getMap
             };
             return mapObj;
 
@@ -73,6 +74,9 @@
               marker.setMap(null);
             };
 
+            function getMap() {
+              return map;
+            }
           },
           function(rejectReason) {
             return $q.reject(rejectReason);

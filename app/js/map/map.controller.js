@@ -14,11 +14,18 @@
     vm.userPosMarker = null;
 
     vm.setMap = setMap;
+    vm.getMap = getMap;
     vm.centerToUser = centerToUser;
 
     function setMap(map) {
       vm.map = map;
-      initUserPositionMarker(map, vm.latestLocation);
+      initUserPositionMarker(vm.map, vm.latestLocation);
+
+      $scope.$emit('mapReady', vm.map);
+    }
+
+    function getMap() {
+      return vm.map;
     }
 
     function initUserPositionMarker(map, initPosition) {
