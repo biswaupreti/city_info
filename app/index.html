@@ -22,6 +22,7 @@
 
   <!-- points of interest -->
   <script type="text/javascript" src="js/poi/poi.module.js"></script>
+  <script type="text/javascript" src="js/poi/poi.controller.js"></script>
   <script type="text/javascript" src="js/poi/poiApi.factory.js"></script>
   <script type="text/javascript" src="js/poi/poiAutocomplete.service.js"></script>
 
@@ -39,31 +40,33 @@
       </div>
     </div>
 
-    <div ng-controller='MapController as map' ng-show='$root.fullscreen'>
+    <div ng-show='$root.fullscreen'>
+      <apt-map ng-style="fullscreen_app_dimensions">
+        <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-click='map.centerToUser()'>
+          <md-icon md-svg-src='img/icons/ic_my_location_black_24px.svg'></md-icon>
+        </md-button>
+      </apt-map>
 
+      <div ng-controller='PoiController as poiCtrl'>
+        <md-autocomplete
+          id='poi-searchbar'
+          class='searchbar'
+          md-input-name='poi-search'
+          md-selected-item='selectedItem'
+          md-search-text='searchText'
+          md-items='item in poiCtrl.getQueryPredictions(searchText)'
+          md-delay='200'
+          md-min-length='2'
+          md-item-text='item.description'>
+          <md-item-template>
+            {{item.description}}
+          </md-item-template>
+        </md-autocomplete>
 
-        <apt-map center='{"lat": 62, "lng": 23}' style="width: 200px; height: 200px;"></apt-map>
-      <md-autocomplete
-        id='poi-searchbar'
-        class='searchbar'
-        md-input-name='poi-search'
-        md-selected-item='selectedItem'
-        md-search-text='searchText'
-        md-items='item in map.getQueryPredictions(searchText)'
-        md-delay='200'
-        md-min-length='2'
-        md-item-text='item.description'>
-        <md-item-template>
-          {{item.description}}
-        </md-item-template>
-      </md-autocomplete>
-      <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-click='map.centerToUser()'>
-        <md-icon md-svg-src='img/icons/ic_my_location_black_24px.svg'></md-icon>
-      </md-button>
-
-      <md-button id='favorites-btn' class='md-fab md-primary md-hue-2' aria-label='Favorites' ng-click='map.showFavorites()'>
-        <md-icon md-svg-src='img/icons/ic_place_black_24px.svg'></md-icon>
-      </md-button>
+        <md-button id='favorites-btn' class='md-fab md-primary md-hue-2' aria-label='Favorites' ng-click='poiCtrl.showFavorites()'>
+          <md-icon md-svg-src='img/icons/ic_place_black_24px.svg'></md-icon>
+        </md-button>
+      </div>
     </div>
   </div>
 </body>

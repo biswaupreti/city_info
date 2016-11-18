@@ -7,30 +7,35 @@
   function MapDirective(MapFactory) {
     return {
       restrict: 'E',
-      replace: true,
-      controller: MapDirectiveController,
-      link: link,
-      template: '<div></div>',
-      scope: {
-        center: '@'
-      }
+      replace: false,
+      controller: 'MapController',
+      controllerAs: 'map',
+      link: link
     };
 
-
-    function MapDirectiveController($scope, $element, MapFactory) {
-      var vm = this;
-    }
-
     function link(scope, element, attrs, controller) {
-      var centerObj = JSON.parse(scope.center);
-      MapFactory.createMap(element[0], centerObj).then(
-        function(map) {
-          scope.map = map;
-        },
-        function(rejectReason) {
-          console.log("Can't create map, reason: " + rejectReason);
+      element[0].style.display = 'block'; //make custom directive visible
+
+      var mapElem = angular.element('<div></div>');
+      mapElem.css('width', '100%').css('height', '100%');
+      element.prepend(mapElem);
+
+      //create the map when app first goes fullscreen
+      //maybe not the best solution for reusable directive?
+      var unregisterWatcher = scope.$root.$watch('fullscreen', function(newVal, oldVal) {
+        if (newVal === true && controller.map === null) {
+          var center = controller.latestLocation;
+          MapFactory.createMap(mapElem[0], center).then(
+            function(map) {
+              controller.setMap(map);
+              unregisterWatcher();
+            },
+            function(rejectReason) {
+              console.log("Can't create map, reason: " + rejectReason);
+            }
+          );
         }
-      );
+      });
     }
   };
 })();
