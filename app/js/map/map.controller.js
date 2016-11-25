@@ -100,17 +100,11 @@
     }
 
     llb_app.addListener('location', function(data){
-      var latLng = {};
-      //Quick fix so that listener works with both custom events and actual events
-      if (data.data) {
-        latLng.lat = data.data.latitude;
-        latLng.lng = data.data.longitude;
-      }
-      else {
-        latLng.lat = data.latitude;
-        latLng.lng = data.longitude;
-      }
-
+      var latLng = {
+        lat: data.data.latitude,
+        lng: data.data.longitude
+      };
+      
       vm.latestLocation = latLng;
       updateUserPosMarker();
     });
