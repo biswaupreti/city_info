@@ -81,9 +81,8 @@
             <p>{{ fcCtrl.selectedPoi.formatted_address }}</>
             <p>{{ fcCtrl.selectedPoi.formatted_phone_number }}</p>
             <p nf-if='fcCtrl.selectedPoi.website'>
-              <a href='{{fcCtrl.selectedPoi.website}}'>{{fcCtrl.selectedPoi.website}}</a>
+              <a href='{{fcCtrl.selectedPoi.website}}' target='_blank'>{{fcCtrl.selectedPoi.website}}</a>
             </p>
-          <span ng-repeat='attribution in fcCtrl.selectedPoi.html_attributions'>{{attribution}}{{ $last ? '' : ', '}}</span>
         </div>
       </div>
     </div>
