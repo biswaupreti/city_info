@@ -26,7 +26,7 @@
           "width": data.fullscreen_width + "px",
           //TODO Find a way around this magic number,
           //it's not even accurate on all screen sizes
-          "height": data.fullscreen_height - 64 + "px"
+          "height": data.fullscreen_height + "px"
         };
 
         $rootScope.initialized = true;
