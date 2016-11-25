@@ -30,6 +30,9 @@
               createMarker: createMarker,
               showMarker: showMarker,
               removeMarker: removeMarker,
+              addListener: addListener,
+              addListenerOnce: addListenerOnce,
+              removeListener: removeListener,
               getGoogleMap: getMap
             };
             return mapObj;
@@ -66,6 +69,18 @@
             function removeMarker(marker) {
               marker.setMap(null);
             };
+
+            function addListener(eventName, listener) {
+              return map.addListener(eventName, listener);
+            }
+
+            function addListenerOnce(eventName, listener) {
+              return map.addListenerOnce(eventName, listener);
+            }
+
+            function removeListener(listenerHandle) {
+                map.removeListener(listenerHandle);
+            }
 
             function getMap() {
               return map;

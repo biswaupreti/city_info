@@ -11,6 +11,8 @@
     vm.searchResults = [];
     vm.selectedPoi = null;
 
+    vm.dragStartListener = null;
+
     $scope.showSearchResults = showSearchResults;
     $scope.clearSearchResults = clearSearchResults;
 
@@ -23,6 +25,13 @@
       }
 
       vm.map = map;
+
+      vm.dragStartListener = map.addListener('dragstart', function() {
+          $scope.$apply(function() {
+            vm.selectedPoi = null;
+          });
+      });
+
       $scope.$broadcast('poiAttributionContainerReady', map);
     }
 
