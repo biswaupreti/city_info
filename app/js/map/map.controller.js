@@ -29,7 +29,10 @@
     }
 
     function initUserPositionMarker(map, initPosition) {
-      vm.userPosMarker = map.createMarker(initPosition, 'img/userpositionmarker.svg');
+      vm.userPosMarker = map.createMarker({
+        position: initPosition,
+        icon: 'img/userpositionmarker.svg'
+      });
       vm.userPosMarker.setClickable(false);
 
       if (vm.showUserPosition) {
@@ -65,7 +68,7 @@
         lat: data.data.latitude,
         lng: data.data.longitude
       };
-      
+
       vm.latestLocation = latLng;
 
       if (vm.showUserPosition) {

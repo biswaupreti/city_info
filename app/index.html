@@ -13,6 +13,7 @@
 
   <!-- shared -->
   <script type="text/javascript" src="js/shared/shared.module.js"></script>
+  <script type="text/javascript" src="js/shared/common.directive.js"></script>
   <script type="text/javascript" src="js/shared/loadGoogleLibraries.provider.js"></script>
 
   <!-- maps -->
@@ -40,9 +41,9 @@
       </div>
     </div>
 
-    <div ng-controller='FullscreenController' ng-show='$root.fullscreen'>
+    <div ng-controller='FullscreenController as fcCtrl' ng-show='$root.fullscreen'>
       <apt-map ng-style="fullscreen_app_dimensions">
-        <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-click='map.centerToUser()'>
+        <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-if='fcCtrl.selectedPoi == null' ng-click='map.centerToUser()'>
           <md-icon md-svg-src='img/icons/ic_my_location_black_24px.svg'></md-icon>
         </md-button>
       </apt-map>
@@ -52,20 +53,38 @@
           id='poi-searchbar'
           class='searchbar'
           md-input-name='poi-search'
-          md-selected-item='selectedItem'
-          md-search-text='searchText'
-          md-items='item in poiCtrl.getQueryPredictions(searchText)'
+          md-selected-item='poiCtrl.selectedItem'
+          md-search-text='poiCtrl.searchText'
+          md-items='item in poiCtrl.getQueryPredictions(poiCtrl.searchText)'
           md-delay='200'
           md-min-length='2'
-          md-item-text='item.description'>
+          md-item-text='item.description'
+          md-selected-item-change='poiCtrl.searchForItem(poiCtrl.selectedItem)'
+          md-close-autocomplete-on-enter
+          ng-enter='poiCtrl.searchForPoi(poiCtrl.selectedItem !== null ? poiCtrl.selectedItem : poiCtrl.searchText)'>
           <md-item-template>
             {{item.description}}
           </md-item-template>
+          <md-not-found>
+            No matches found.
+          </md-not-found>
         </md-autocomplete>
 
-        <md-button id='favorites-btn' class='md-fab md-primary md-hue-2' aria-label='Favorites' ng-click='poiCtrl.showFavorites()'>
+        <md-button id='favorites-btn' class='md-fab md-primary md-hue-2' aria-label='Favorites' ng-if='fcCtrl.selectedPoi == null' ng-click='poiCtrl.showFavorites()'>
           <md-icon md-svg-src='img/icons/ic_place_black_24px.svg'></md-icon>
         </md-button>
+      </div>
+
+      <div ng-if='fcCtrl.selectedPoi !== null'>
+        <div id='poi-detail-dialog'>
+          <h3>{{fcCtrl.selectedPoi.name}}</h3>
+            <p>{{ fcCtrl.selectedPoi.formatted_address }}</>
+            <p>{{ fcCtrl.selectedPoi.formatted_phone_number }}</p>
+            <p nf-if='fcCtrl.selectedPoi.website'>
+              <a href='{{fcCtrl.selectedPoi.website}}'>{{fcCtrl.selectedPoi.website}}</a>
+            </p>
+          <span ng-repeat='attribution in fcCtrl.selectedPoi.html_attributions'>{{attribution}}{{ $last ? '' : ', '}}</span>
+        </div>
       </div>
     </div>
   </div>

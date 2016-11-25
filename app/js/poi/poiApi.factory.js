@@ -10,6 +10,7 @@
         return LoadGoogleMapsApi.then(
           function() {
             var api = null;
+
             //Check that attributionContainer is valid (= Google Maps object or HTML div)
             if (attributionContainer == null) {
               return $q.reject("attributionContainer is null");
@@ -28,8 +29,17 @@
               searchWithDetails: searchWithDetails,
               search: search,
               getDetails: getDetails,
-
             };
+
+            googlePlaces.Status = {
+              OK: google.maps.places.PlacesServiceStatus.OK,
+              ZERO_RESULTS: google.maps.places.PlacesServiceStatus.ZERO_RESULTS,
+              DENIED: google.maps.places.PlacesServiceStatus.REQUEST_DENIED,
+              INVALID: google.maps.places.PlacesServiceStatus.INVALID_REQUEST,
+              OVER_QUOTA: google.maps.places.PlacesServiceStatus.OVER_QUERY_LIMIT,
+              UNKNOWN: google.maps.places.PlacesServiceStatus.UNKNOWN_ERROR
+            };
+
             return googlePlaces;
 
             function searchWithDetails(queryObj, callback) {

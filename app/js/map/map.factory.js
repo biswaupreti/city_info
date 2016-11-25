@@ -54,15 +54,8 @@
               return map.getBounds();
             }
 
-            function createMarker(location, icon) {
-              var marker = new google.maps.Marker({
-                position: location
-              });
-
-              if (icon !== null) {
-                marker.setIcon(icon);
-              }
-
+            function createMarker(properties) {
+              var marker = new google.maps.Marker(properties);
               return marker;
             }
 
