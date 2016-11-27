@@ -61,3 +61,14 @@ html, body, iframe
   bottom: 85px;
   right: 0;
 }
+
+#poi-detail-dialog {
+  position: absolute;
+  background-color: white;
+  padding: 0 1em;
+  color: black;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+}
