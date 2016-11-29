@@ -10,15 +10,18 @@
         return LoadGoogleMapsApi.then(
           function() {
             var api = null;
+
             //Check that attributionContainer is valid (= Google Maps object or HTML div)
             if (attributionContainer == null) {
               return $q.reject("attributionContainer is null");
-            } else if (attributionContainer instanceof google.maps.Map ||
-                attributionContainer instanceof HTMLDivElement) {
+            } else if (attributionContainer instanceof google.maps.Map) {
               api = new google.maps.places.PlacesService(attributionContainer);
-            } else if (attributionContainer.map !== undefined && attributionContainer.map instanceof google.maps.Map) {
-              api = new google.maps.places.PlacesService(attributionContainer.map);
-            } else {
+            } else if (attributionContainer.getGoogleMap !== undefined && attributionContainer.getGoogleMap() instanceof google.maps.Map) {
+              api = new google.maps.places.PlacesService(attributionContainer.getGoogleMap());
+            } else if (attributionContainer instanceof HTMLDivElement) {
+              api = new google.maps.places.PlacesService(attributionContainer);
+            }
+            else {
                 return $q.reject("attributionContainer is null");
             }
 
@@ -26,8 +29,17 @@
               searchWithDetails: searchWithDetails,
               search: search,
               getDetails: getDetails,
-
             };
+
+            googlePlaces.Status = {
+              OK: google.maps.places.PlacesServiceStatus.OK,
+              ZERO_RESULTS: google.maps.places.PlacesServiceStatus.ZERO_RESULTS,
+              DENIED: google.maps.places.PlacesServiceStatus.REQUEST_DENIED,
+              INVALID: google.maps.places.PlacesServiceStatus.INVALID_REQUEST,
+              OVER_QUOTA: google.maps.places.PlacesServiceStatus.OVER_QUERY_LIMIT,
+              UNKNOWN: google.maps.places.PlacesServiceStatus.UNKNOWN_ERROR
+            };
+
             return googlePlaces;
 
             function searchWithDetails(queryObj, callback) {
