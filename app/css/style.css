@@ -72,3 +72,9 @@ html, body, iframe
   right: 0;
   height: 200px;
 }
+#menu-button {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background-color: blue;
+}

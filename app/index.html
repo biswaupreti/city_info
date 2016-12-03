@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html ng-app='cityInfo'>
 <head>
   <title>City Information</title>
@@ -73,6 +73,9 @@
         <md-button id='favorites-btn' class='md-fab md-primary md-hue-2' aria-label='Favorites' ng-if='fcCtrl.selectedPoi == null' ng-click='poiCtrl.showFavorites()'>
           <md-icon md-svg-src='img/icons/ic_place_black_24px.svg'></md-icon>
         </md-button>
+        
+        <md-button id='menu-button'>Map</md-button>
+      
       </div>
 
       <div ng-if='fcCtrl.selectedPoi !== null'>
@@ -84,6 +87,7 @@
               <a href='{{fcCtrl.selectedPoi.website}}' target='_blank'>{{fcCtrl.selectedPoi.website}}</a>
             </p>
         </div>
+
       </div>
     </div>
   </div>
