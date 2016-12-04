@@ -41,14 +41,14 @@
       </div>
     </div>
 
-    <div ng-controller='FullscreenController as fcCtrl' ng-show='tab===1'>
+    <div ng-controller='FullscreenController as fcCtrl' ng-show='($root.fullscreen && tab ===1)'>
       <apt-map ng-style="fullscreen_app_dimensions">
         <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-if='fcCtrl.selectedPoi == null' ng-click='map.centerToUser()'>
           <md-icon md-svg-src='img/icons/ic_my_location_black_24px.svg'></md-icon>
         </md-button>
       </apt-map>
 
-      <div ng-controller='PoiController as poiCtrl'>
+      <div ng-controller='PoiController as poiCtrl' ng-show='tab ===1'>
         <md-autocomplete
           id='poi-searchbar'
           class='searchbar'
@@ -75,7 +75,7 @@
         </md-button>      
       </div>
 
-      <div ng-if='fcCtrl.selectedPoi !== null'>
+      <div ng-if='fcCtrl.selectedPoi !== null' ng-show='tab ===1'>
         <div id='poi-detail-dialog'>
           <h3>{{fcCtrl.selectedPoi.name}}</h3>
             <p>{{ fcCtrl.selectedPoi.formatted_address }}</>
@@ -87,17 +87,17 @@
 
       </div>
     </div>
-    <div ng-show= 'tab===2'>
-      <p> news </p>
-    </div>
-    <div ng-show= 'tab===3'>
-      <p> places </p>
-    </div>
-    <div ng-init= 'tab=1'>
-      <md-button id='menu-button' ng-class='{active:tab===1}' ng-click= "tab=1">Map</md-button>
-      <md-button id='menu-button'style = 'left: 132px' ng-class='{active:tab===2}' ng-click= "tab=2">News</md-button>
-      <md-button id='menu-button'style = 'left: 257px' ng-class='{active:tab===3}' ng-click= "tab=3">Places</md-button>
-    </div>
+     <div ng-show= 'tab===2'>
+        <p> news </p>
+      </div>
+      <div ng-show= 'tab===3'>
+        <p> places </p>
+      </div>
+      <div ng-init= 'tab=1' ng-show= '$root.fullscreen'>
+        <md-button id='menu-button' ng-class='{active:tab===1}' ng-click= "tab=1">Map</md-button>
+        <md-button id='menu-button'style = 'left: 132px' ng-class='{active:tab===2}' ng-click= "tab=2">News</md-button>
+        <md-button id='menu-button'style = 'left: 257px' ng-class='{active:tab===3}' ng-click= "tab=3">Places</md-button>
+      </div>
   </div>
 </body>
 </html>
