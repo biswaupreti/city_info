@@ -50,15 +50,15 @@ html, body, iframe
   padding: 0px 35px;
 }
 
-#user-center-btn {
+#user-center-btn {  
   position: absolute;
-  bottom: 20px;
+  bottom: 50px;
   right: 0;
 }
 
 #favorites-btn {
   position: absolute;
-  bottom: 85px;
+  bottom: 115px;
   right: 0;
 }
 
@@ -74,7 +74,10 @@ html, body, iframe
 }
 #menu-button {
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  bottom: 9px;
+  left: 7px;
   background-color: blue;
+}
+.active {
+  background-color: yellow!important;
 }
