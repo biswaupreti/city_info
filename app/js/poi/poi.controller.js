@@ -89,6 +89,18 @@
           if (statusCode == vm.poiApi.Status.OK) {
             $scope.$apply(function(){
               angular.extend(poi, detailResult);
+
+              //force attribution links to open in a new window
+              var photoArr = poi.photos;
+              if (photoArr !== undefined) {
+                for (var i = 0; i < photoArr.length; ++i) {
+                  var attributions = photoArr[i].html_attributions;
+                  for (var j = 0; j < attributions.length; ++j) {
+                    attributions[j] = attributions[j].slice(0, 2) + " target='_blank' " + attributions[j].slice(2);
+                  }
+                }
+              }
+
               poi.hasDetails = true;
             });
           }

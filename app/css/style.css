@@ -71,4 +71,35 @@ html, body, iframe
   left: 0;
   right: 0;
   height: 200px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  word-wrap: break-word;
+}
+
+.poi-photo-carousel-container {
+  height: 50%;
+  width: 100%;
+  display:inline-block;
+  text-align: center;
+}
+
+.poi-photo-carousel {
+  width:100%;
+  height:100%;
+  margin-bottom: 0;
+}
+
+
+.poi-photo-carousel-bgimage {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  vertical-align: bottom;
+  color:white;
+  height: 100%;
+  background-position: center center;
+}
+
+.poi-photo-carousel-bgimage span {
+  background-color: white;
 }
