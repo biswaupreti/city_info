@@ -89,7 +89,7 @@
       <div id='poi-detail-dialog' ng-show="fcCtrl.selectedPoi !== null">
         <h3>{{fcCtrl.selectedPoi.name}}</h3>
         <p>
-          <span ng-repeat="(key, category) in fcCtrl.selectedPoi.types | limitTo:3">
+          <span ng-repeat="category in fcCtrl.selectedPoi.types | strBlacklist : 'point_of_interest' | limitTo:3">
             {{category | underscoreToSpace}}{{ !$last ? ", " : "" }}
           </span>
         </p>
