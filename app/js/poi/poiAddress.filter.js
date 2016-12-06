@@ -6,7 +6,7 @@
         if (input === null) {
           return null;
         }
-        
+
         if (input.address_components !== undefined) {
           if (shortVersion) {
             var route = "";
@@ -24,7 +24,9 @@
                   else if (type === "street_number") {
                     streetNumber = component.long_name;
                   }
-                  else if (type === "locality") {
+                  else if (type === "locality" ||
+                  (locality == null && type == "political") ||
+                  (locality == null && type == "administrative_area_level_3")) {
                     locality = component.long_name;
                   }
                 }
