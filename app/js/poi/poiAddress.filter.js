@@ -9,8 +9,8 @@
 
         if (input.address_components !== undefined) {
           if (shortVersion) {
-            var route = "";
-            var streetNumber = "";
+            var streetNumber = null;
+            var route = null;
             var locality = null;
 
             for (var i = 0; i < input.address_components.length; ++i) {
@@ -33,7 +33,16 @@
               }
             }
 
-            var address = route + " " + streetNumber;
+            if (route === null) {
+              return input.formatted_address;
+            }
+
+            var address = route;
+
+            if (streetNumber !== null) {
+              address += " " + streetNumber;
+            }
+
             return locality !== null ? (address + ", " + locality) : address;
           }
           else {
