@@ -1,12 +1,14 @@
 (function() {
   'use strict';
   angular.module('cityInfo.news').controller('NewsController', function($http,$scope){
-  	$scope.news= [{title:'1stnews'},{title:'2ndnews'}];
-  	/*$http.get('https://external.api.yle.fi/v1/programs/items.json?q=muumit&limit=1&app_id=ba306bcd&app_key=76d513583d19451e054bcc9dab2f2e64')
+  	$scope.news= [];
+  	$http.get('https://newsapi.org/v1/articles?source=techcrunch&apiKey=4fd9c090e8c04c9f983076ed474461cd')
 		.success(function (response) {
-			console.log(response)
+		    //console.log(response);
+        angular.forEach(response.articles,function (news) {
+            $scope.news.push(news)
         })
-    */
+        })
   });
 
 })();
