@@ -81,3 +81,13 @@ html, body, iframe
 .active {
   background-color: yellow!important;
 }
+.hidden {
+    display: none;
+}
+.width-full {
+    width:100%;
+}
+.scroll-vertical {
+    overflow-y: scroll;
+    height: 560px;
+}
