@@ -8,7 +8,9 @@
         angular.forEach(response.articles,function (news) {
             $scope.news.push(news)
         })
-        })
+        }).error(function () {
+        alert("get news failed");
+    })
   });
 
 })();
