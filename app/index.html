@@ -115,16 +115,18 @@
 
     <!--places view-->
 
-    <div ng-show='($root.fullscreen && tab ===3)'>
+    <div ng-show='($root.fullscreen && tab ===3)' style="position: absolute">
         <p> places view </p>
     </div>
 
     <!--buttons-->
 
     <div ng-init='tab=1' ng-show='$root.fullscreen'>
-        <md-button id='menu-button' ng-class='{active:tab===1}' ng-click="tab=1">Map</md-button>
-        <md-button id='menu-button' style='left: 132px' ng-class='{active:tab===2}' ng-click="tab=2">News</md-button>
-        <md-button id='menu-button' style='left: 257px' ng-class='{active:tab===3}' ng-click="tab=3">Places</md-button>
+        <div id="button-container">
+            <md-button id='menu-button' ng-class='{active:tab===1}' ng-click="tab=1">Map</md-button>
+            <md-button id='menu-button' ng-class='{active:tab===2}' ng-click="tab=2">News</md-button>
+            <md-button id='menu-button' ng-class='{active:tab===3}' ng-click="tab=3">Places</md-button>
+        </div>
     </div>
 </div>
 </body>
