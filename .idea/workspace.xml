@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3f528dec-90aa-43e9-9fb4-d4898128da51" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/css/style.css" afterPath="$PROJECT_DIR$/app/css/style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/index.html" afterPath="$PROJECT_DIR$/app/index.html" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -25,11 +23,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="121" column="18" lean-forward="true" selection-start-line="121" selection-start-column="18" selection-end-line="121" selection-end-column="18" />
+            <state relative-caret-position="258">
+              <caret line="104" column="39" lean-forward="true" selection-start-line="104" selection-start-column="39" selection-end-line="104" selection-end-column="39" />
               <folding>
                 <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -40,7 +38,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/css/style.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="306">
@@ -75,8 +73,8 @@
         <option value="$PROJECT_DIR$/app/js/places/places.module.js" />
         <option value="$PROJECT_DIR$/app/js/places/places.controller.js" />
         <option value="$PROJECT_DIR$/app/js/app/app.module.js" />
-        <option value="$PROJECT_DIR$/app/index.html" />
         <option value="$PROJECT_DIR$/app/css/style.css" />
+        <option value="$PROJECT_DIR$/app/index.html" />
       </list>
     </option>
   </component>
@@ -259,12 +257,12 @@
       <workItem from="1481237739381" duration="11312000" />
       <workItem from="1481459152363" duration="1034000" />
       <workItem from="1481460193126" duration="6000" />
-      <workItem from="1481460454252" duration="3521000" />
+      <workItem from="1481460454252" duration="4392000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19140000" />
+    <option name="totallyTimeSpent" value="20011000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -513,24 +511,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="77" column="1" lean-forward="true" selection-start-line="77" selection-start-column="1" selection-end-line="77" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="121" column="18" lean-forward="true" selection-start-line="121" selection-start-column="18" selection-end-line="121" selection-end-column="18" />
+        <state relative-caret-position="258">
+          <caret line="104" column="39" lean-forward="true" selection-start-line="104" selection-start-column="39" selection-end-line="104" selection-end-column="39" />
           <folding>
             <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#span#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#3;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="77" column="1" lean-forward="true" selection-start-line="77" selection-start-column="1" selection-end-line="77" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
