@@ -40,4 +40,4 @@ jspm_packages
 /*.zip
 
 # Ignore the files from webstorm
-/idea/
+/.idea/
