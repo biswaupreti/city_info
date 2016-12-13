@@ -86,40 +86,44 @@
         </md-button>
       </div>
 
-      <div id='poi-detail-dialog' ng-show="fcCtrl.selectedPoi !== null">
-        <h3>{{fcCtrl.selectedPoi.name}}</h3>
-        <p>
-          <span ng-repeat="category in fcCtrl.selectedPoi.types | strBlacklist : 'point_of_interest' | limitTo:3">
-            {{category | underscoreToSpace}}{{ !$last ? ", " : "" }}
-          </span>
-        </p>
-        <p>{{ fcCtrl.selectedPoi | poiAddress : true }}</p>
-        <p ng-show='fcCtrl.selectedPoi.formatted_phone_number'>Phone: {{ fcCtrl.selectedPoi.formatted_phone_number }}</p>
-        <p ng-show='fcCtrl.selectedPoi.opening_hours'>
-          Currently {{ fcCtrl.selectedPoi.opening_hours.open_now ? 'open' : 'closed'}},
-          Today's opening hours:
-          {{ fcCtrl.selectedPoi.opening_hours.periods[$root.curDate].open.hours }}{{ fcCtrl.selectedPoi.opening_hours.periods[$root.curDate].open.minutes !== 0 ? ':' + fcCtrl.selectedPoi.opening_hours.periods[$root.curDate].open.minutes : ''}}
-          -
-          {{ fcCtrl.selectedPoi.opening_hours.periods[$root.curDate].close.hours }}{{ fcCtrl.selectedPoi.opening_hours.periods[$root.curDate].open.minutes !== 0 ? ':' + fcCtrl.selectedPoi.opening_hours.periods[$root.curDate].open.minutes : ''}}
-        </p>
-        <p ng-show='fcCtrl.selectedPoi.rating'>Rating: {{ fcCtrl.selectedPoi.rating }}</p>
-        <p ng-show='fcCtrl.selectedPoi.website'>
-          <a href='{{ fcCtrl.selectedPoi.website }}' target='_blank'>{{ fcCtrl.selectedPoi.website }}</a>
-        </p>
+      <div id='poi-detail-dialog' ng-show="fcCtrl.selectedPoi !== null" ng-class="fcCtrl.detailsFullscreen ? 'detail-dialog-big' : 'detail-dialog-small'">
+        <button id="detail-dialog-size-btn" ng-click="fcCtrl.detailsFullscreen = !fcCtrl.detailsFullscreen">{{ fcCtrl.detailsFullscreen ? 'small' : 'big' }}</button>
+        <button id="detail-dialog-dismiss-btn" ng-click="fcCtrl.hidePoiDetails()">X</button>
+        <div style="height: 100%;">
+          <h3>{{fcCtrl.selectedPoi.name}}</h3>
+          <p>
+            <span ng-repeat="category in fcCtrl.selectedPoi.types | strBlacklist : 'point_of_interest' | limitTo:2">
+              {{category | underscoreToSpace}}{{ !$last ? ", " : "" }}
+            </span>
+          </p>
+          <p>{{ fcCtrl.selectedPoi | poiAddress : true }}</p>
+          <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.formatted_phone_number'>Phone: {{ fcCtrl.selectedPoi.formatted_phone_number }}</p>
+          <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.opening_hours'>
+            Currently {{ fcCtrl.selectedPoi.opening_hours.open_now ? 'open' : 'closed'}},
+            Today's opening hours:
+            {{ fcCtrl.selectedPoi.opening_hours.periods[$root.curDate].open.hours }}{{ fcCtrl.selectedPoi.opening_hours.periods[$root.curDate].open.minutes !== 0 ? ':' + fcCtrl.selectedPoi.opening_hours.periods[$root.curDate].open.minutes : ''}}
+            -
+            {{ fcCtrl.selectedPoi.opening_hours.periods[$root.curDate].close.hours }}{{ fcCtrl.selectedPoi.opening_hours.periods[$root.curDate].open.minutes !== 0 ? ':' + fcCtrl.selectedPoi.opening_hours.periods[$root.curDate].open.minutes : ''}}
+          </p>
+          <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.rating'>Rating: {{ fcCtrl.selectedPoi.rating }}</p>
+          <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.website'>
+            <a href='{{ fcCtrl.selectedPoi.website }}' target='_blank'>{{ fcCtrl.selectedPoi.website }}</a>
+          </p>
 
-        <div ng-if="fcCtrl.selectedPoi.photos" class="poi-photo-carousel-container">
-          <ul rn-carousel rn-carousel-index="carouselIdx" class="poi-photo-carousel">
-            <li ng-repeat="photo in fcCtrl.selectedPoi.photos">
-              <div ng-style="{'background-image': 'url(' + photo.getUrl({maxWidth:512}) + ')'}"  class="poi-photo-carousel-bgimage">
-                <span class="attribution-text" ng-bind-html="photo.html_attributions[0]"></span>
-              </div>
-            </li>
-          </ul>
-          <div rn-carousel-indicators ng-if="fcCtrl.selectedPoi.photos.length > 1" slides="fcCtrl.selectedPoi.photos" rn-carousel-index="carouselIdx">
+          <div ng-if="fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.photos" class="poi-photo-carousel-container">
+            <ul rn-carousel rn-carousel-index="carouselIdx" class="poi-photo-carousel">
+              <li ng-repeat="photo in fcCtrl.selectedPoi.photos">
+                <div ng-style="{'background-image': 'url(' + photo.getUrl({maxWidth:512}) + ')'}"  class="poi-photo-carousel-bgimage">
+                  <span class="attribution-text" ng-bind-html="photo.html_attributions[0]"></span>
+                </div>
+              </li>
+            </ul>
+            <div rn-carousel-indicators ng-if="fcCtrl.selectedPoi.photos.length > 1" slides="fcCtrl.selectedPoi.photos" rn-carousel-index="carouselIdx">
+            </div>
           </div>
-        </div>
-
-        <a href='{{ fcCtrl.selectedPoi.url }}' target='_blank'>See on Google Maps</a>
+          
+          <a href='{{ fcCtrl.selectedPoi.url }}' target='_blank'>See on Google Maps</a>
+        <div>
       </div>
     </div>
   </div>

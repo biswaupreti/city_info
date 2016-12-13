@@ -36,7 +36,7 @@
     llb_app.request('window_dimensions');
   };
 
-  angular.module('cityInfo', ['ngMaterial', 'ngSanitize', 'angular-carousel', 'cityInfo.map', 'cityInfo.poi'])
+  angular.module('cityInfo', ['ngMaterial', 'ngSanitize', 'ngAnimate', 'angular-carousel', 'cityInfo.map', 'cityInfo.poi'])
   .config(['$mdThemingProvider', 'GoogleMapsApiProvider', configureApp])
   .run(['$rootScope', onAppInitialized]);
 })();
