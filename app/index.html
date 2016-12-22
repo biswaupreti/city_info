@@ -98,9 +98,7 @@
           </p>
           <p>{{ fcCtrl.selectedPoi | poiAddress : true }}</p>
           <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.formatted_phone_number'>Phone: {{ fcCtrl.selectedPoi.formatted_phone_number }}</p>
-          <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.opening_hours'>
-            Currently {{ fcCtrl.selectedPoi.opening_hours.open_now ? 'open' : 'closed'}}
-          </p>
+          <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.opening_hours'>Currently {{ fcCtrl.selectedPoi.opening_hours.open_now ? 'open' : 'closed'}}</p>
           <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.rating'>Rating: {{ fcCtrl.selectedPoi.rating }}</p>
           <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.website'>
             <a href='{{ fcCtrl.selectedPoi.website }}' target='_blank'>{{ fcCtrl.selectedPoi.website }}</a>
