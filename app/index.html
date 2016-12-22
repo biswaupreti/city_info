@@ -89,7 +89,7 @@
       <div id='poi-detail-dialog' ng-show="fcCtrl.selectedPoi !== null" ng-class="fcCtrl.detailsFullscreen ? 'detail-dialog-big' : 'detail-dialog-small'">
         <button id="detail-dialog-size-btn" ng-click="fcCtrl.detailsFullscreen = !fcCtrl.detailsFullscreen">{{ fcCtrl.detailsFullscreen ? 'small' : 'big' }}</button>
         <button id="detail-dialog-dismiss-btn" ng-click="fcCtrl.hidePoiDetails()">X</button>
-        <div style="height: 100%;">
+        <div style="height: 100%;"> <!--  Needed for carousels adaptive size -->
           <h3>{{fcCtrl.selectedPoi.name}}</h3>
           <p>
             <span ng-repeat="category in fcCtrl.selectedPoi.types | strBlacklist : 'point_of_interest' | limitTo:2">
@@ -121,7 +121,7 @@
             <div rn-carousel-indicators ng-if="fcCtrl.selectedPoi.photos.length > 1" slides="fcCtrl.selectedPoi.photos" rn-carousel-index="carouselIdx">
             </div>
           </div>
-          
+
           <a href='{{ fcCtrl.selectedPoi.url }}' target='_blank'>See on Google Maps</a>
         <div>
       </div>
