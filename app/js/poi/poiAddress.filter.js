@@ -1,7 +1,9 @@
 (function() {
   'use strict';
   angular.module('cityInfo.poi')
-    .filter('poiAddress', function () {
+    .filter('poiAddress', PoiAddressFilterFactory);
+
+    function PoiAddressFilterFactory() {
       return function (input, shortVersion) {
         if (input === null) {
           return null;
@@ -56,5 +58,5 @@
           return null;
         }
       };
-    })
+    }
 })();
