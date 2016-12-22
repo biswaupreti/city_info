@@ -65,8 +65,8 @@ html, body, iframe
 #poi-detail-dialog {
   position: absolute;
   background-color: white;
-  padding: 0 1em;
   color: black;
+  padding: 0 1em;
   bottom: 0;
   left: 0;
   right: 0;
@@ -74,32 +74,12 @@ html, body, iframe
   word-wrap: break-word;
 }
 
+#poi-detail-dialog h3 {
+    margin-top: 0.15em;
+}
+
 #poi-detail-dialog h3, .detail-dialog-small p {
-  margin-top: 8px;
-  margin-bottom: 0;
-}
-
-#poi-detail-dialog.ng-hide-add,
-#poi-detail-dialog.ng-hide-remove {
-  transition: 0.1s linear all;
-  -webkit-transition: 0.1s linear all;
-  display: block !important;
-}
-
-#poi-detail-dialog.ng-hide-add {
-  height: 130px;
-}
-
-#poi-detail-dialog.ng-hide-add.ng-hide-add-active {
-  height: 0;
-}
-
-#poi-detail-dialog.ng-hide-remove {
-  height: 0;
-}
-
-#poi-detail-dialog.ng-hide-remove.ng-hide-remove-active {
-  height: 130px;
+  margin-bottom: 0.5em;
 }
 
 #detail-dialog-size-btn {
@@ -116,12 +96,12 @@ html, body, iframe
 
 .detail-dialog-small {
   overflow-y: hidden;
-  height: 130px;
+  height: 25%;
 }
 
 .detail-dialog-big {
   overflow-y: scroll;
-  height: 450px;
+  height: 85%;
 }
 
 .poi-photo-carousel-container {
@@ -144,7 +124,7 @@ html, body, iframe
   justify-content: flex-end;
   align-items: flex-end;
   vertical-align: bottom;
-  color:white;
+  color: white;
   height: 100%;
   background-position: center center;
 }
