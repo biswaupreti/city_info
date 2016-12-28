@@ -87,8 +87,12 @@
       </div>
 
       <div id='poi-detail-dialog' ng-show="fcCtrl.selectedPoi !== null" ng-class="fcCtrl.detailsFullscreen ? 'detail-dialog-big' : 'detail-dialog-small'">
-        <button id="detail-dialog-size-btn" ng-click="fcCtrl.detailsFullscreen = !fcCtrl.detailsFullscreen">{{ fcCtrl.detailsFullscreen ? 'small' : 'big' }}</button>
-        <button id="detail-dialog-dismiss-btn" ng-click="fcCtrl.hidePoiDetails()">X</button>
+        <md-button class="md-icon-button" id="detail-dialog-size-btn" ng-click="fcCtrl.detailsFullscreen = !fcCtrl.detailsFullscreen">
+          <md-icon md-svg-src='{{ fcCtrl.detailsFullscreen ? "img/icons/ic_expand_more_black_24px.svg" : "img/icons/ic_expand_less_black_24px.svg"}}'></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" id="detail-dialog-dismiss-btn" ng-click="fcCtrl.hidePoiDetails()">
+          <md-icon md-svg-src='img/icons/ic_close_black_24px.svg'></md-icon>
+        </md-button>
         <div style="height: 100%;"> <!--  Needed for carousels adaptive size -->
           <h3>{{fcCtrl.selectedPoi.name}}</h3>
           <p>

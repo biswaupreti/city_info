@@ -76,6 +76,7 @@ html, body, iframe
 
 #poi-detail-dialog h3 {
     margin-top: 0.15em;
+    max-width: calc(100% - 50px);
 }
 
 #poi-detail-dialog h3, .detail-dialog-small p {
