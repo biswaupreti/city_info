@@ -7,14 +7,18 @@
   function FullscreenController($scope) {
     var vm = this;
 
+    var dragStartListener = null;
+
     vm.map = null;
     vm.searchResults = [];
-    vm.selectedPoi = null;
 
-    vm.dragStartListener = null;
+    vm.selectedPoi = null;
+    vm.detailsFullscreen = false;
 
     $scope.showSearchResults = showSearchResults;
     $scope.clearSearchResults = clearSearchResults;
+
+    vm.hidePoiDetails = hidePoiDetails;
 
     $scope.$on('mapReady', onMapReady);
 
@@ -26,9 +30,9 @@
 
       vm.map = map;
 
-      vm.dragStartListener = map.addListener('dragstart', function() {
+      dragStartListener = map.addListener('dragstart', function() {
           $scope.$apply(function() {
-            vm.selectedPoi = null;
+            hidePoiDetails();
           });
       });
 
@@ -87,6 +91,11 @@
           poi.getDetails();
         }
       };
+    }
+
+    function hidePoiDetails() {
+      vm.selectedPoi = null;
+      vm.detailsFullscreen = false;
     }
   }
 })();

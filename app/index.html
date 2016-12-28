@@ -2,10 +2,20 @@
 <html ng-app='cityInfo'>
 <head>
   <title>City Information</title>
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
-  <script src="//ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.js"></script>
+  <!-- angular -->
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-sanitize.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-touch.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+
+  <!-- angular material -->
+  <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angular_material/1.0.7/angular-material.min.js"></script>
+  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+
+  <!-- vendor scripts -->
+  <script type="text/javascript" src="vendor/angular-carousel/angular-carousel.min.js"></script>
+  <link rel="stylesheet" href="vendor/angular-carousel/angular-carousel.min.css">
 
   <script type="text/javascript" src="js/llb.js"></script>
   <script type="text/javascript" src="js/app/app.module.js"></script>
@@ -14,6 +24,7 @@
   <!-- shared -->
   <script type="text/javascript" src="js/shared/shared.module.js"></script>
   <script type="text/javascript" src="js/shared/common.directive.js"></script>
+  <script type="text/javascript" src="js/shared/common.filter.js"></script>
   <script type="text/javascript" src="js/shared/googleMapsApi.provider.js"></script>
 
   <!-- maps -->
@@ -24,11 +35,11 @@
 
   <!-- points of interest -->
   <script type="text/javascript" src="js/poi/poi.module.js"></script>
+  <script type="text/javascript" src="js/poi/poiAddress.filter.js"></script>
   <script type="text/javascript" src="js/poi/poi.controller.js"></script>
   <script type="text/javascript" src="js/poi/poiApi.factory.js"></script>
   <script type="text/javascript" src="js/poi/poiAutocomplete.service.js"></script>
 
-  <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
   <link href="https://fonts.googleapis.com/css?family=Annie+Use+Your+Telescope" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
 
@@ -75,15 +86,42 @@
         </md-button>
       </div>
 
-      <div ng-if='fcCtrl.selectedPoi !== null'>
-        <div id='poi-detail-dialog'>
+      <div id='poi-detail-dialog' ng-show="fcCtrl.selectedPoi !== null" ng-class="fcCtrl.detailsFullscreen ? 'detail-dialog-big' : 'detail-dialog-small'">
+        <md-button class="md-icon-button" id="detail-dialog-size-btn" ng-click="fcCtrl.detailsFullscreen = !fcCtrl.detailsFullscreen">
+          <md-icon md-svg-src='{{ fcCtrl.detailsFullscreen ? "img/icons/ic_expand_more_black_24px.svg" : "img/icons/ic_expand_less_black_24px.svg"}}'></md-icon>
+        </md-button>
+        <md-button class="md-icon-button" id="detail-dialog-dismiss-btn" ng-click="fcCtrl.hidePoiDetails()">
+          <md-icon md-svg-src='img/icons/ic_close_black_24px.svg'></md-icon>
+        </md-button>
+        <div style="height: 100%;"> <!--  Needed for carousels adaptive size -->
           <h3>{{fcCtrl.selectedPoi.name}}</h3>
-            <p>{{ fcCtrl.selectedPoi.formatted_address }}</>
-            <p>{{ fcCtrl.selectedPoi.formatted_phone_number }}</p>
-            <p nf-if='fcCtrl.selectedPoi.website'>
-              <a href='{{fcCtrl.selectedPoi.website}}' target='_blank'>{{fcCtrl.selectedPoi.website}}</a>
-            </p>
-        </div>
+          <p>
+            <span ng-repeat="category in fcCtrl.selectedPoi.types | strBlacklist : 'point_of_interest' | limitTo:2">
+              {{category | underscoreToSpace}}{{ !$last ? ", " : "" }}
+            </span>
+          </p>
+          <p>{{ fcCtrl.selectedPoi | poiAddress : true }}</p>
+          <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.formatted_phone_number'>Phone: {{ fcCtrl.selectedPoi.formatted_phone_number }}</p>
+          <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.opening_hours'>Currently {{ fcCtrl.selectedPoi.opening_hours.open_now ? 'open' : 'closed'}}</p>
+          <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.rating'>Rating: {{ fcCtrl.selectedPoi.rating }}</p>
+          <p ng-show='fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.website'>
+            <a href='{{ fcCtrl.selectedPoi.website }}' target='_blank'>{{ fcCtrl.selectedPoi.website }}</a>
+          </p>
+
+          <div ng-if="fcCtrl.detailsFullscreen && fcCtrl.selectedPoi.photos" class="poi-photo-carousel-container">
+            <ul rn-carousel rn-carousel-index="carouselIdx" class="poi-photo-carousel">
+              <li ng-repeat="photo in fcCtrl.selectedPoi.photos">
+                <div ng-style="{'background-image': 'url(' + photo.getUrl({maxWidth:512}) + ')'}"  class="poi-photo-carousel-bgimage">
+                  <span class="attribution-text" ng-bind-html="photo.html_attributions[0]"></span>
+                </div>
+              </li>
+            </ul>
+            <div rn-carousel-indicators ng-if="fcCtrl.selectedPoi.photos.length > 1" slides="fcCtrl.selectedPoi.photos" rn-carousel-index="carouselIdx">
+            </div>
+          </div>
+
+          <a href='{{ fcCtrl.selectedPoi.url }}' target='_blank'>See on Google Maps</a>
+        <div>
       </div>
     </div>
   </div>
