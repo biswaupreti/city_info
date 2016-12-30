@@ -73,7 +73,7 @@ html, body, iframe
   background-color: white;
   color: black;
   padding: 0 1em;
-  bottom: 0;
+  bottom: 50px;
   left: 0;
   right: 0;
   overflow-x: hidden;
@@ -108,7 +108,7 @@ html, body, iframe
 
 .detail-dialog-big {
   overflow-y: scroll;
-  height: 85%;
+  height: 75%;
 }
 
 .poi-photo-carousel-container {
@@ -140,7 +140,15 @@ html, body, iframe
   background-color: white;
 }
 
-#menu-button {
+#tab-button-container {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  height: 50px;
+  width:100%;
+}
+
+.tab-button {
   position: relative;
   height: 100%;
   width: 32.5%;
@@ -151,8 +159,8 @@ html, body, iframe
   margin: 0px;
 }
 
-.active {
-  background-color: yellow !important;
+.tab-button.active {
+  background-color: yellow;
 }
 
 .hidden {
@@ -167,12 +175,4 @@ html, body, iframe
   position: absolute;
   overflow-y: scroll;
   height: calc(100% - 50px);
-}
-
-#button-container {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  height: 50px;
-  width:100%;
 }
