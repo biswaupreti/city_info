@@ -57,7 +57,7 @@
     </div>
 
     <div ng-controller='FullscreenController as fcCtrl' ng-if='::$root.fullscreen || undefined' ng-show='$root.fullscreen && tab === 1'>
-      <apt-map ng-style="fullscreen_app_dimensions">
+      <apt-map id='mapview-map'>
         <md-button id='user-center-btn' class='md-fab md-primary md-hue-2' aria-label='Center' ng-if='fcCtrl.selectedPoi == null' ng-click='map.centerToUser()'>
           <md-icon md-svg-src='img/icons/ic_my_location_black_24px.svg'></md-icon>
         </md-button>
@@ -130,7 +130,7 @@
       </div>
     </div>
   </div>
-  
+
   <!--news view-->
   <div ng-show='($root.fullscreen && tab ===2)' ng-controller='NewsController as nc'>
     <div class="scroll-vertical"style="background-color: white;">
