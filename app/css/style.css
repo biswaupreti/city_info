@@ -65,10 +65,71 @@ html, body, iframe
 #poi-detail-dialog {
   position: absolute;
   background-color: white;
-  padding: 0 1em;
   color: black;
+  padding: 0 1em;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 200px;
+  overflow-x: hidden;
+  word-wrap: break-word;
+}
+
+#poi-detail-dialog h3 {
+    margin-top: 0.15em;
+    max-width: calc(100% - 50px);
+}
+
+#poi-detail-dialog h3, .detail-dialog-small p {
+  margin-bottom: 0.5em;
+}
+
+#detail-dialog-size-btn {
+  position: absolute;
+  right: 40px;
+  top : 0;
+}
+
+#detail-dialog-dismiss-btn {
+  position: absolute;
+  right: 0;
+  top : 0;
+}
+
+.detail-dialog-small {
+  overflow-y: hidden;
+  height: 25%;
+}
+
+.detail-dialog-big {
+  overflow-y: scroll;
+  height: 85%;
+}
+
+.poi-photo-carousel-container {
+  min-height: 200px;
+  height: 50%;
+  width: 100%;
+  display:inline-block;
+  text-align: center;
+}
+
+.poi-photo-carousel {
+  width:100%;
+  max-width: 512px;
+  height:100%;
+  margin-bottom: 0;
+}
+
+.poi-photo-carousel-bgimage {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  vertical-align: bottom;
+  color: white;
+  height: 100%;
+  background-position: center center;
+}
+
+.poi-photo-carousel-bgimage .attribution-text {
+  background-color: white;
 }
