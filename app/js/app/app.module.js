@@ -12,6 +12,7 @@
   function onAppInitialized($rootScope) {
     $rootScope.fullscreen = false;
     $rootScope.initialized = false;
+    $rootScope.tab = 1;
     $rootScope.curDate = new Date().getDay();
 
     llb_app.addListener('window_state', function(data) {
