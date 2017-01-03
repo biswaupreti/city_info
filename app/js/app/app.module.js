@@ -12,6 +12,7 @@
   function onAppInitialized($rootScope) {
     $rootScope.fullscreen = false;
     $rootScope.initialized = false;
+    $rootScope.tab = 1;
     $rootScope.curDate = new Date().getDay();
 
     llb_app.addListener('window_state', function(data) {
@@ -36,7 +37,7 @@
     llb_app.request('window_dimensions');
   };
 
-  angular.module('cityInfo', ['ngMaterial', 'ngSanitize', 'ngAnimate', 'angular-carousel', 'cityInfo.map', 'cityInfo.poi'])
+  angular.module('cityInfo', ['ngMaterial', 'ngSanitize', 'ngAnimate', 'angular-carousel', 'cityInfo.map', 'cityInfo.poi', 'cityInfo.news'])
   .config(['$mdThemingProvider', 'GoogleMapsApiProvider', configureApp])
   .run(['$rootScope', onAppInitialized]);
 })();
