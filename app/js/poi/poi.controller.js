@@ -12,16 +12,11 @@
     vm.searchText = "";
     vm.selectedItem = null;
 
-    vm.showFavorites = showFavorites;
     vm.searchForItem = searchForItem;
     vm.searchForPoi = searchForPoi;
     vm.getQueryPredictions = getPoiAutoCompleteResults;
 
     $scope.$on('poiAttributionContainerReady', onAttributionContainerReady);
-
-    function showFavorites() {
-      console.log('Favorites button pressed');
-    }
 
     function searchForItem(item) {
       if (item !== null) {

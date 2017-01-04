@@ -62,12 +62,6 @@ html, body, iframe
   right: 0;
 }
 
-#favorites-btn {
-  position: absolute;
-  bottom: 135px;
-  right: 0;
-}
-
 #poi-detail-dialog {
   position: absolute;
   background-color: white;

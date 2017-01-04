@@ -84,10 +84,6 @@
           No matches found.
         </md-not-found>
       </md-autocomplete>
-
-      <md-button id='favorites-btn' class='md-fab md-primary md-hue-2' aria-label='Favorites' ng-if='fcCtrl.selectedPoi == null' ng-click='poiCtrl.showFavorites()'>
-        <md-icon md-svg-src='img/icons/ic_place_black_24px.svg'></md-icon>
-      </md-button>
     </div>
 
     <div id='poi-detail-dialog' ng-show="fcCtrl.selectedPoi !== null" ng-class="fcCtrl.detailsFullscreen ? 'detail-dialog-big' : 'detail-dialog-small'">
